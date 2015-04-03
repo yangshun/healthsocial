@@ -22,10 +22,12 @@ exports.index = function(req, res) {
 
 // Get a single post
 exports.show = function(req, res) {
-  Post.findById(req.params.id, function (err, post) {
-    if(err) { return handleError(res, err); }
-    if(!post) { return res.send(404); }
-    return res.json(post);
+  Post.findById(req.params.id)
+    .populate('_creator', '_id, name')
+    .exec(function (err, post) {
+      if(err) { return handleError(res, err); }
+      if(!post) { return res.send(404); }
+      return res.json(post);
   });
 };
 

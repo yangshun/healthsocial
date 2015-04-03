@@ -16,7 +16,7 @@
         <div class="panel-body">
           <div class="compose-mail">
             <form role="form-horizontal" method="post">
-              <input type="text" class="form-control" placeholder="Add a new thing here." ng-model="newPost">
+              <input type="text" class="form-control" placeholder="What's on your mind?" ng-model="newPost">
               <div class="compose-btn pull-right">
                 <button class="btn btn-primary" ng-click="addPost()"><i class="fa fa-check"></i> Post</button>
               </div>
@@ -45,8 +45,8 @@
                                 {{post.date | fromPresentDate}}
                               </div>
                               <div class="second">
+                                <strong>{{post._creator.name}}</strong>
                                 <p>{{post.content}}</p>
-                                {{post._creator.name}}
                               </div>
                           </div>
                       </div>
