@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('healthsocialDevApp')
-  .controller('MainCtrl', function ($scope, $http, socket) {
+  .controller('DashboardCtrl', function ($scope, $http, socket) {
     $scope.awesomeThings = [];
 
     $http.get('/api/things').success(function(awesomeThings) {

@@ -4,7 +4,7 @@ angular.module('healthsocialDevApp')
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'app/main/main.html',
-        controller: 'MainCtrl'
+        templateUrl: 'app/dashboard/dashboard.html',
+        controller: 'DashboardCtrl'
       });
   });
