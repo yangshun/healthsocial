@@ -1,12 +1,12 @@
 'use strict';
 
-describe('Controller: DashboardCtrl', function () {
+describe('Controller: FeedCtrl', function () {
 
   // load the controller's module
   beforeEach(module('healthsocialDevApp'));
   beforeEach(module('socketMock'));
 
-  var DashboardCtrl,
+  var FeedCtrl,
       scope,
       $httpBackend;
 
@@ -17,7 +17,7 @@ describe('Controller: DashboardCtrl', function () {
       .respond(['HTML5 Boilerplate', 'AngularJS', 'Karma', 'Express']);
 
     scope = $rootScope.$new();
-    DashboardCtrl = $controller('DashboardCtrl', {
+    FeedCtrl = $controller('FeedCtrl', {
       $scope: scope
     });
   }));

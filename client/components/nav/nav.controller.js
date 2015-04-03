@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('healthsocialDevApp')
-.controller('NavCtrl', function ($scope, $location, Auth) {
+angular.module('healthsocialDevApp').controller('NavCtrl', function ($scope, $location, Auth) {
   $scope.menu = [
     {
       title: 'Dashboard',
