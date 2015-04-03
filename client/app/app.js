@@ -17,6 +17,12 @@ angular.module('healthsocialDevApp', [
     $httpProvider.interceptors.push('authInterceptor');
   })
 
+  .filter('fromPresentDate', function() {
+    return function (input) {
+      return moment(input).fromNow();
+    };
+  })
+
   .factory('authInterceptor', function ($rootScope, $q, $cookieStore, $location) {
     return {
       // Add authorization token to headers

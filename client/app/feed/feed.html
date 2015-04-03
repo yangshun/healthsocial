@@ -31,21 +31,22 @@
                 <div class="timeline-messages">
                   <h3>
                     Latest Happenings
-                    <form action="#" class="pull-right mail-src-position">
+                    <!-- <form action="#" class="pull-right mail-src-position">
                       <div class="input-append">
                         <input type="text" class="form-control " placeholder="Search Posts">
                       </div>
-                    </form>
+                    </form> -->
                   </h3>
                   <div class="msg-time-chat" ng-repeat="post in posts.slice().reverse()">
                       <div class="message-body msg-in">
                           <span class="arrow"></span>
                           <div class="text">
                               <div class="first">
-                                {{post.date}}
+                                {{post.date | fromPresentDate}}
                               </div>
                               <div class="second">
-                                {{post.content}}
+                                <p>{{post.content}}</p>
+                                {{post._creator.name}}
                               </div>
                           </div>
                       </div>

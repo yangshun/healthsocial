@@ -14,7 +14,7 @@ angular.module('healthsocialDevApp')
         return;
       }
       $http.post('/api/posts', {
-        user_id: $scope.getCurrentUser()._id,
+        _creator: $scope.getCurrentUser()._id,
         content: $scope.newPost 
       });
       $scope.newPost = '';

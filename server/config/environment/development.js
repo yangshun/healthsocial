@@ -8,5 +8,5 @@ module.exports = {
     uri: 'mongodb://localhost/healthsocialdev-dev'
   },
 
-  seedDB: true
+  seedDB: false
 };
