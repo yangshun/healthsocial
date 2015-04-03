@@ -3,7 +3,7 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
-var postSchema = new Schema({
+var PostSchema = new Schema({
   _creator : { type: Schema.Types.ObjectId, ref: 'User' },
   date: { type: Date, default: Date.now },
   content: String,
@@ -11,4 +11,4 @@ var postSchema = new Schema({
   active: Boolean
 });
 
-module.exports = mongoose.model('Post', postSchema);
+module.exports = mongoose.model('Post', PostSchema);
