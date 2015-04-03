@@ -5,6 +5,7 @@ angular.module('healthsocialDevApp')
     $routeProvider
       .when('/', {
         templateUrl: 'app/dashboard/dashboard.html',
-        controller: 'DashboardCtrl'
+        controller: 'DashboardCtrl',
+        authenticate: true
       });
   });

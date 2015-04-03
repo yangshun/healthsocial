@@ -5,6 +5,7 @@ angular.module('healthsocialDevApp')
     $routeProvider
       .when('/feed', {
         templateUrl: 'app/feed/feed.html',
-        controller: 'FeedCtrl'
+        controller: 'FeedCtrl',
+        authenticate: true
       });
   });
