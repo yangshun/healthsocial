@@ -24,4 +24,7 @@ angular.module('healthsocialDevApp')
     $scope.$on('$destroy', function () {
       socket.unsyncUpdates('thing');
     });
+    console.log('main');
+
   });
+
