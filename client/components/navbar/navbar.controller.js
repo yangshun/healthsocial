@@ -2,10 +2,33 @@
 
 angular.module('healthsocialDevApp')
 .controller('NavbarCtrl', function ($scope, $location, Auth) {
-  $scope.menu = [{
-    'title': 'Home',
-    'link': '/'
-  }];
+  $scope.menu = [
+    {
+      title: 'Dashboard',
+      icon: 'fa-dashboard',
+      link: '/'
+    },
+    {
+      title: 'Feed',
+      icon: 'fa-newspaper-o',
+      link: '/feed'
+    },
+    {
+      title: 'Community',
+      icon: 'fa-users',
+      link: '/community'
+    },
+    {
+      title: 'Data Analysis',
+      icon: 'fa-bar-chart-o',
+      link: '/analysis'
+    },
+    {
+      title: 'Leaderboard',
+      icon: 'fa-trophy',
+      link: '/leaderboard'
+    }
+  ];
 
   $scope.isCollapsed = true;
   $scope.isLoggedIn = Auth.isLoggedIn;
