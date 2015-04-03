@@ -5,28 +5,46 @@
 <section id="main-content">
 <section class="wrapper">
 
-
 <div class="row">
-    <div class="col-lg-12">
-      <h1 class="page-header">Features:</h1>
-      <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="post in posts">
-        <li><a href="#">{{post.content}}<button type="button" class="close" ng-click="deleteThing(thing)">&times;</button></a></li>
-      </ul>
+    <div class="col-lg-8">
+      <section class="panel">
+        <header class="panel-heading wht-bg">
+          <h4 class="gen-case"> Hey {{getCurrentUser().name}}, What's Up?
+            
+          </h4>
+        </header>
+        <div class="panel-body">
+          <div class="compose-mail">
+            <form role="form-horizontal" method="post">
+              <input type="text" class="form-control" placeholder="Add a new thing here." ng-model="newPost">
+              <div class="compose-btn pull-right">
+                <button class="btn btn-primary" ng-click="addPost()"><i class="fa fa-check"></i> Post</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
 
       <div id="job-history" class="tab-pane ">
         <div class="row">
             <div class="col-md-12">
                 <div class="timeline-messages">
-                  <h3>Take a Tour</h3>
-                    <!-- Comment -->
-                  <div class="msg-time-chat" ng-repeat="post in posts">
+                  <h3>
+                    Latest Happenings
+                    <form action="#" class="pull-right mail-src-position">
+                      <div class="input-append">
+                        <input type="text" class="form-control " placeholder="Search Posts">
+                      </div>
+                    </form>
+                  </h3>
+                  <div class="msg-time-chat" ng-repeat="post in posts.slice().reverse()">
                       <div class="message-body msg-in">
                           <span class="arrow"></span>
                           <div class="text">
                               <div class="first">
                                 {{post.date}}
                               </div>
-                              <div class="second bg-terques ">
+                              <div class="second">
                                 {{post.content}}
                               </div>
                           </div>
@@ -36,22 +54,8 @@
             </div>
         </div>
     </div>
-  </div>
-</div>
-<div class="row">
-    <div class="col-lg-12">
-        <form class="thing-form">
-            <label>Syncs in realtime across clients: {{getCurrentUser().name}}</label>
-            <p class="input-group">
-              <input type="text" class="form-control" placeholder="Add a new thing here." ng-model="newThing">
-              <span class="input-group-btn">
-                <button type="submit" class="btn btn-primary" ng-click="addThing()">Add New</button>
-              </span>
-            </p>
-        </form>
     </div>
 </div>
-
 
 </section>
 </section>

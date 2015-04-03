@@ -13,7 +13,10 @@ angular.module('healthsocialDevApp')
       if($scope.newPost === '') {
         return;
       }
-      $http.post('/api/posts', { name: $scope.newPost });
+      $http.post('/api/posts', {
+        user_id: $scope.getCurrentUser()._id,
+        content: $scope.newPost 
+      });
       $scope.newPost = '';
     };
 
