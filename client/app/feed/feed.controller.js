@@ -1,28 +1,30 @@
 'use strict';
 
 angular.module('healthsocialDevApp')
-  .controller('FeedCtrl', function ($scope, $http, socket) {
-    $scope.awesomeThings = [];
+  .controller('FeedCtrl', function ($scope, $http, socket, Auth) {
+    $scope.awesomePosts = [];
 
-    $http.get('/api/things').success(function(awesomeThings) {
-      $scope.awesomeThings = awesomeThings;
-      socket.syncUpdates('thing', $scope.awesomeThings);
+    $http.get('/api/posts').success(function(posts) {
+      $scope.posts = posts;
+      socket.syncUpdates('post', $scope.posts);
     });
 
-    $scope.addThing = function() {
-      if($scope.newThing === '') {
+    $scope.addPost = function() {
+      if($scope.newPost === '') {
         return;
       }
-      $http.post('/api/things', { name: $scope.newThing });
-      $scope.newThing = '';
+      $http.post('/api/posts', { name: $scope.newPost });
+      $scope.newPost = '';
     };
 
-    $scope.deleteThing = function(thing) {
-      $http.delete('/api/things/' + thing._id);
+    $scope.deletePost = function(post) {
+      $http.delete('/api/posts/' + post._id);
     };
 
     $scope.$on('$destroy', function () {
-      socket.unsyncUpdates('thing');
+      socket.unsyncUpdates('post');
     });
+
+    $scope.getCurrentUser = Auth.getCurrentUser;
 
   });
