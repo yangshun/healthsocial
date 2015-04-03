@@ -8,19 +8,24 @@ angular.module('healthsocialDevApp').controller('NavCtrl', function ($scope, $lo
       link: '/'
     },
     {
+      title: 'Data Analysis',
+      icon: 'fa-bar-chart-o',
+      link: '/analysis'
+    },
+    {
       title: 'Feed',
       icon: 'fa-newspaper-o',
       link: '/feed'
     },
     {
+      title: 'Chatroom',
+      icon: 'fa-comments',
+      link: '/chatroom'
+    },
+    {
       title: 'Community',
       icon: 'fa-users',
       link: '/community'
-    },
-    {
-      title: 'Data Analysis',
-      icon: 'fa-bar-chart-o',
-      link: '/analysis'
     },
     {
       title: 'Leaderboard',
