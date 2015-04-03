@@ -1,84 +1,123 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
 <section id="container">
-
 <!--main content start-->
 <section id="main-content">
 <section class="wrapper">
 
-<!--mini statistics start-->
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-8">
         <section class="panel">
-            <div class="panel-body">
-                <div class="top-stats-panel">
-                    <div class="gauge-canvas">
-                        <h4 class="widget-h">Monthly Expense</h4>
-                        <canvas width=160 height=100 id="gauge"></canvas>
-                    </div>
-                    <ul class="gauge-meta clearfix">
-                        <li id="gauge-textfield" class="pull-left gauge-value"></li>
-                        <li class="pull-right gauge-title">Safe</li>
-                    </ul>
+            <div class="wdgt-row">
+                <img src="assets/images/weather_image.jpg" height="243" alt="">
+                <div class="wdt-head">
+                    weather forecast
+                </div>
+                <div class="country-select">
+                    <select class="styled">
+                        <option>New York </option>
+                        <option>London </option>
+                        <option>Australia </option>
+                        <option>China </option>
+                        <option>Canada </option>
+                    </select>
                 </div>
             </div>
-        </section>
-    </div>
-    <div class="col-md-3">
-        <section class="panel">
-            <div class="panel-body">
-                <div class="top-stats-panel">
-                    <div class="daily-visit">
-                        <h4 class="widget-h">Daily Visitors</h4>
-                        <div id="daily-visit-chart" style="width:100%; height: 100px; display: block">
 
-                        </div>
-                        <ul class="chart-meta clearfix">
-                            <li class="pull-left visit-chart-value">3233</li>
-                            <li class="pull-right visit-chart-title"><i class="fa fa-arrow-up"></i> 15%</li>
+            <div class="panel-body">
+                <div class="row weather-full-info">
+                    <div class="col-md-3 today-status">
+                        <h1>Today</h1>
+                        <i class=" ico-cloudy "></i>
+                        <div class="degree">37</div>
+                    </div>
+                    <div class="col-md-9">
+                        <ul>
+                            <li>
+                                <h2>Tomorrow</h2>
+                                <i class=" ico-cloudy text-primary"></i>
+                                <div class="statistics">32</div>
+                            </li>
+                            <li>
+                                <h2>Mon</h2>
+                                <i class=" ico-rainy2 text-danger"></i>
+                                <div class="statistics">40</div>
+                            </li>
+                            <li>
+                                <h2>Tue</h2>
+                                <i class=" ico-lightning3 text-info"></i>
+                                <div class="statistics">25</div>
+                            </li>
+                            <li>
+                                <h2>Wed</h2>
+                                <i class=" ico-sun3 text-success"></i>
+                                <div class="statistics">37</div>
+                            </li>
+                            <li>
+                                <h2>Thu</h2>
+                                <i class=" ico-snowy3 text-warning"></i>
+                                <div class="statistics">15</div>
+                            </li>
+                            <li>
+                                <h2>Fri</h2>
+                                <i class=" ico-cloudy "></i>
+                                <div class="statistics">21</div>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
+
         </section>
     </div>
-    <div class="col-md-3">
-        <section class="panel">
-            <div class="panel-body">
-                <div class="top-stats-panel">
-                    <h4 class="widget-h">Top Advertise</h4>
-                    <div class="sm-pie">
-                    </div>
+
+    <div class="col-md-4">
+        <div class="profile-nav alt">
+            <section class="panel">
+                <div class="user-heading alt clock-row terques-bg">
+                    <h1>December 14</h1>
+                    <p class="text-left">2014, Friday</p>
+                    <p class="text-left">7:53 PM</p>
                 </div>
-            </div>
-        </section>
-    </div>
-    <div class="col-md-3">
-        <section class="panel">
-            <div class="panel-body">
-                <div class="top-stats-panel">
-                    <h4 class="widget-h">Daily Sales</h4>
-                    <div class="bar-stats">
-                        <ul class="progress-stat-bar clearfix">
-                            <li data-percent="50%"><span class="progress-stat-percent pink"></span></li>
-                            <li data-percent="90%"><span class="progress-stat-percent"></span></li>
-                            <li data-percent="70%"><span class="progress-stat-percent yellow-b"></span></li>
-                        </ul>
-                        <ul class="bar-legend">
-                            <li><span class="bar-legend-pointer pink"></span> New York</li>
-                            <li><span class="bar-legend-pointer green"></span> Los Angels</li>
-                            <li><span class="bar-legend-pointer yellow-b"></span> Dallas</li>
-                        </ul>
-                        <div class="daily-sales-info">
-                            <span class="sales-count">1200 </span> <span class="sales-label">Products Sold</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+                <ul id="clock">
+                    <li id="sec"></li>
+                    <li id="hour"></li>
+                    <li id="min"></li>
+                </ul>
+
+                <ul class="clock-category">
+                    <li>
+                        <a href="#" class="active">
+                            <i class="ico-clock2"></i>
+                            <span>Clock</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="ico-alarm2 "></i>
+                            <span>Alarm</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="ico-stopwatch"></i>
+                            <span>Stop watch</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class=" ico-clock2 "></i>
+                            <span>Timer</span>
+                        </a>
+                    </li>
+                </ul>
+
+            </section>
+
+        </div>
     </div>
 </div>
-<!--mini statistics end-->
+
 <div class="row">
     <div class="col-md-8">
         <!--earning graph start-->
@@ -189,6 +228,81 @@
         <!--widget weather end-->
     </div>
 </div>
+
+<!--mini statistics start-->
+<div class="row">
+    <div class="col-md-3">
+        <section class="panel">
+            <div class="panel-body">
+                <div class="top-stats-panel">
+                    <div class="gauge-canvas">
+                        <h4 class="widget-h">Monthly Expense</h4>
+                        <canvas width=160 height=100 id="gauge"></canvas>
+                    </div>
+                    <ul class="gauge-meta clearfix">
+                        <li id="gauge-textfield" class="pull-left gauge-value"></li>
+                        <li class="pull-right gauge-title">Safe</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="col-md-3">
+        <section class="panel">
+            <div class="panel-body">
+                <div class="top-stats-panel">
+                    <div class="daily-visit">
+                        <h4 class="widget-h">Daily Visitors</h4>
+                        <div id="daily-visit-chart" style="width:100%; height: 100px; display: block">
+
+                        </div>
+                        <ul class="chart-meta clearfix">
+                            <li class="pull-left visit-chart-value">3233</li>
+                            <li class="pull-right visit-chart-title"><i class="fa fa-arrow-up"></i> 15%</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="col-md-3">
+        <section class="panel">
+            <div class="panel-body">
+                <div class="top-stats-panel">
+                    <h4 class="widget-h">Top Advertise</h4>
+                    <div class="sm-pie">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="col-md-3">
+        <section class="panel">
+            <div class="panel-body">
+                <div class="top-stats-panel">
+                    <h4 class="widget-h">Daily Sales</h4>
+                    <div class="bar-stats">
+                        <ul class="progress-stat-bar clearfix">
+                            <li data-percent="50%"><span class="progress-stat-percent pink"></span></li>
+                            <li data-percent="90%"><span class="progress-stat-percent"></span></li>
+                            <li data-percent="70%"><span class="progress-stat-percent yellow-b"></span></li>
+                        </ul>
+                        <ul class="bar-legend">
+                            <li><span class="bar-legend-pointer pink"></span> New York</li>
+                            <li><span class="bar-legend-pointer green"></span> Los Angels</li>
+                            <li><span class="bar-legend-pointer yellow-b"></span> Dallas</li>
+                        </ul>
+                        <div class="daily-sales-info">
+                            <span class="sales-count">1200 </span> <span class="sales-label">Products Sold</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<!--mini statistics end-->
+
 <!--mini statistics start-->
 <div class="row">
     <div class="col-md-3">
@@ -340,119 +454,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-8">
-        <section class="panel">
-            <div class="wdgt-row">
-                <img src="assets/images/weather_image.jpg" height="243" alt="">
-                <div class="wdt-head">
-                    weather forecast
-                </div>
-                <div class="country-select">
-                    <select class="styled">
-                        <option>New York </option>
-                        <option>London </option>
-                        <option>Australia </option>
-                        <option>China </option>
-                        <option>Canada </option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="panel-body">
-                <div class="row weather-full-info">
-                    <div class="col-md-3 today-status">
-                        <h1>Today</h1>
-                        <i class=" ico-cloudy "></i>
-                        <div class="degree">37</div>
-                    </div>
-                    <div class="col-md-9">
-                        <ul>
-                            <li>
-                                <h2>Tomorrow</h2>
-                                <i class=" ico-cloudy text-primary"></i>
-                                <div class="statistics">32</div>
-                            </li>
-                            <li>
-                                <h2>Mon</h2>
-                                <i class=" ico-rainy2 text-danger"></i>
-                                <div class="statistics">40</div>
-                            </li>
-                            <li>
-                                <h2>Tue</h2>
-                                <i class=" ico-lightning3 text-info"></i>
-                                <div class="statistics">25</div>
-                            </li>
-                            <li>
-                                <h2>Wed</h2>
-                                <i class=" ico-sun3 text-success"></i>
-                                <div class="statistics">37</div>
-                            </li>
-                            <li>
-                                <h2>Thu</h2>
-                                <i class=" ico-snowy3 text-warning"></i>
-                                <div class="statistics">15</div>
-                            </li>
-                            <li>
-                                <h2>Fri</h2>
-                                <i class=" ico-cloudy "></i>
-                                <div class="statistics">21</div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-        </section>
-    </div>
-
-    <div class="col-md-4">
-        <div class="profile-nav alt">
-            <section class="panel">
-                <div class="user-heading alt clock-row terques-bg">
-                    <h1>December 14</h1>
-                    <p class="text-left">2014, Friday</p>
-                    <p class="text-left">7:53 PM</p>
-                </div>
-                <ul id="clock">
-                    <li id="sec"></li>
-                    <li id="hour"></li>
-                    <li id="min"></li>
-                </ul>
-
-                <ul class="clock-category">
-                    <li>
-                        <a href="#" class="active">
-                            <i class="ico-clock2"></i>
-                            <span>Clock</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="ico-alarm2 "></i>
-                            <span>Alarm</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="ico-stopwatch"></i>
-                            <span>Stop watch</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class=" ico-clock2 "></i>
-                            <span>Timer</span>
-                        </a>
-                    </li>
-                </ul>
-
-            </section>
-
-        </div>
-    </div>
-</div>
-<div class="row">
-<div class="col-md-6">
+  <div class="col-md-6">
     <!--notification start-->
     <section class="panel">
         <header class="panel-heading">
@@ -514,8 +516,8 @@
         </div>
     </section>
     <!--notification end-->
-</div>
-<div class="col-md-6">
+  </div>
+  <div class="col-md-6">
     <!--todolist start-->
     <section class="panel">
         <header class="panel-heading">
@@ -663,8 +665,9 @@
         </div>
     </section>
     <!--todolist end-->
+  </div>
 </div>
-</div>
+
 </section>
 </section>
 <!--main content end-->
