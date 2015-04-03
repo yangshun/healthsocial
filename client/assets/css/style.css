@@ -46,7 +46,7 @@ a,a:hover,a:focus {
 }
 /*login page*/
 .login-body {
-    background:#32323A;
+    background: #1FB3A3 url("../images/lock-screen.jpg") no-repeat fixed 0 0 / cover;
     background-size:cover;
     width:100%;
     height:100%;
@@ -93,7 +93,9 @@ a,a:hover,a:focus {
 .form-signin .form-control:focus {
     z-index:2;
 }
-.form-signin input[type="text"],.form-signin input[type="password"] {
+.form-signin input[type="text"],
+.form-signin input[type="email"],
+.form-signin input[type="password"] {
     margin-bottom:15px;
     border-radius:5px;
     -webkit-border-radius:5px;
@@ -133,11 +135,9 @@ a,a:hover,a:focus {
 .user-login-info .form-control:last-child {
     margin-bottom:0 !important;
 }
-.registration {
-    position:absolute;
-    right:0;
-    bottom:-35px;
-    color: #b8bab9;
+.login-helper {
+    margin-top: 10px 0;
+    text-align: center;
 }
 /*sidebar navigation*/
 #sidebar {
