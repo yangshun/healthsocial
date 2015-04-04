@@ -1,0 +1,51 @@
+<div ng-include="'components/nav/nav.html'"></div>
+
+<section id="container">
+<!--main content start-->
+<section id="main-content">
+<section class="wrapper">
+
+<div class="row">
+  <div class="col-md-4" ng-repeat="user in users | orderBy:'name'">
+    <section class="panel">
+      <div class="user-container twt-feed user-background" style="background-image: url('{{user.facebook_cover_photo}}')">
+        <div class="corner-ribon black-ribon">
+          <i class="fa fa-user"></i>
+        </div>
+        <div ng-show="!user.facebook_cover_photo" class="wtt-mark"></div>
+        <a class="user-link" href="#">
+          <img alt="{{user.name}} Profile Picture" ng-src="{{user.facebook_id | fbProfilePicture}}">
+        </a>
+        <h1>{{user.name}}</h1>
+        <p>{{user.email}}</p>
+      </div>
+      <div class="weather-category twt-category">
+        <ul>
+          <li class="active">
+            <h5>750</h5>
+            Activity
+          </li>
+          <li>
+            <h5>865</h5>
+            Sleep
+          </li>
+          <li>
+            <h5>3645</h5>
+            Weight
+          </li>
+        </ul>
+      </div>
+      <footer class="twt-footer">
+        <a href="#"><i class="fa fa-camera"></i></a>
+        <a href="#"><i class="fa fa-map-marker"></i></a>
+          New Castle, UK
+        <span class="pull-right">32</span>
+      </footer>
+    </section>
+  </div>
+</div>
+
+</section>
+</section>
+<!--main content end-->
+</section>

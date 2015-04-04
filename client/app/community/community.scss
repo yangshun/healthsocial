@@ -1,0 +1,32 @@
+.user-background {
+  background-color: #1fb5ad; 
+  background-size: cover;
+  background-position: center center;
+  filter: grayscale(50%);
+}
+
+.user-link {
+  border: 5px solid rgba(255,255,255,0.8);
+}
+
+.user-container {
+  -webkit-border-radius: 4px 4px 0 0;
+  color: #FFFFFF;
+  padding: 40px 10px 10px;
+  position: relative;
+  min-height: 170px;
+
+
+}
+
+.twt-feed .wtt-mark {
+  background-image: url('/assets/images/healthsocial-icon.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  right: 30px;
+  left: auto;
+  top: 30px;
+  width: 40%;
+  height: 76%;
+}
