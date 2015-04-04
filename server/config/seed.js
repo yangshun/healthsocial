@@ -32,17 +32,40 @@ Thing.find({}).remove(function() {
 });
 
 var seedUsers = require('../data/users.json');
+var http = require('http');
+var async = require('async');
 
 User.find({}).remove(function() {
-  _.each(seedUsers, function (user) {
-    User.create({
-      provider: 'local',
-      name: user.name,
-      email: user.email,
-      facebook_id: user.facebook_id,
-      password: 'test'
+
+  function getFacebookCoverPhoto (user, callback) {
+    http.get('http://graph.facebook.com/' + user.facebook_id + '?fields=cover', function (res) {
+      var body = '';
+
+      res.on('data', function (chunk) {
+        body += chunk;
+      });
+
+      res.on('end', function () {
+        var data = JSON.parse(body);
+        user.facebook_cover_photo = data.cover ? data.cover.source : null;
+        callback(null, user);
+      });
+    });
+  }
+
+  async.map(seedUsers, getFacebookCoverPhoto, function (err, users) {
+    _.each(users, function (user) {
+      User.create({
+        provider: 'local',
+        name: user.name,
+        email: user.email,
+        facebook_id: user.facebook_id,
+        password: 'test',
+        facebook_cover_photo: user.facebook_cover_photo
+      });
     });
   });
+
   User.create({
     provider: 'local',
     name: 'Test User',

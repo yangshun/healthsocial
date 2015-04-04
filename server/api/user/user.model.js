@@ -16,6 +16,7 @@ var UserSchema = new Schema({
   provider: String,
   salt: String,
   facebook_id: String,
+  facebook_cover_photo: String,
   facebook: {},
   github: {}
 });
