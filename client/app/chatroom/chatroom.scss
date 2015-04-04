@@ -1,0 +1,7 @@
+$thumbnail-radius: 32px;
+
+.chat-thumbnail {
+  border-radius: $thumbnail-radius/2;
+  height: $thumbnail-radius;
+  width: $thumbnail-radius;
+}

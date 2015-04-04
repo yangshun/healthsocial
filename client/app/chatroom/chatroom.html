@@ -18,8 +18,7 @@
               <ul class="conversation-list" style="overflow: hidden; width: auto; height: 460px;">
                 <li class="clearfix" ng-class="{odd: (getCurrentUser()._id === message._creator._id)}" ng-repeat="message in messages.slice()">
                   <div class="chat-avatar">
-                    <img src="assets/images/chat-user-thumb.png" alt="male">
-                    <i>{{message.date | date:'h:mma'}}</i>
+                    <img class="chat-thumbnail" ng-src="{{message._creator.facebook_id | fbProfilePicture}}" alt="male">
                   </div>
                   <div class="conversation-text">
                     <div class="ctext-wrap">
@@ -27,6 +26,7 @@
                       <p>
                         {{message.content}}
                       </p>
+                      <i>{{message.date | date:'h:mma'}}</i>
                     </div>
                   </div>
                 </li>

@@ -14,7 +14,7 @@ var Post = require('./post.model');
 
 // Get list of posts
 exports.index = function(req, res) {
-  Post.find().populate('_creator', '_id, name').exec(function (err, posts) {
+  Post.find().populate('_creator', '_id name facebook_id').exec(function (err, posts) {
     if(err) { return handleError(res, err); }
     return res.json(200, posts);
   });
@@ -23,7 +23,7 @@ exports.index = function(req, res) {
 // Get a single post
 exports.show = function(req, res) {
   Post.findById(req.params.id)
-    .populate('_creator', '_id, name')
+    .populate('_creator', '_id name facebook_id')
     .exec(function (err, post) {
       if(err) { return handleError(res, err); }
       if(!post) { return res.send(404); }

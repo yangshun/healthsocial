@@ -23,6 +23,12 @@ angular.module('healthsocialDevApp', [
     };
   })
 
+  .filter('fbProfilePicture', function() {
+    return function (fbId) {
+      return 'http://graph.facebook.com/' + fbId + '/picture?type=normal';
+    };
+  })
+
   .factory('authInterceptor', function ($rootScope, $q, $cookieStore, $location) {
     return {
       // Add authorization token to headers

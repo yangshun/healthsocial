@@ -5,7 +5,7 @@ var Message = require('./message.model');
 
 // Get list of messages
 exports.index = function(req, res) {
-  Message.find().populate('_creator', '_id, name').exec(function (err, messages) {
+  Message.find().populate('_creator', 'name facebook_id').exec(function (err, messages) {
     if(err) { return handleError(res, err); }
     return res.json(200, messages);
   });
@@ -14,7 +14,7 @@ exports.index = function(req, res) {
 // Get a single message
 exports.show = function(req, res) {
   Message.findById(req.params.id)
-    .populate('_creator', '_id, name')
+    .populate('_creator', 'name facebook_id')
     .exec(function(err, message) {
     if(err) { return handleError(res, err); }
     if(!message) { return res.send(404); }

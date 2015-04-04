@@ -199,7 +199,7 @@
         <!-- user login dropdown start-->
         <li class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                <img alt="" src="assets/images/avatar1_small.jpg">
+                <img alt="{{ getCurrentUser().name }} Profile" src="{{ getCurrentUser().facebook_id | fbProfilePicture }}">
                 <span class="username">{{ getCurrentUser().name }}</span>
                 <b class="caret"></b>
             </a>

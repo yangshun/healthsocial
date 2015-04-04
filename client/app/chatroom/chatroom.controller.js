@@ -13,7 +13,10 @@ angular.module('healthsocialDevApp')
     $http.get('/api/messages').success(function(messages) {
       $scope.messages = messages;
       socket.syncUpdates('message', $scope.messages, function () {
-        scrollToBottomOfChat();
+        console.log($scope.messages);
+        setTimeout(function () {
+          scrollToBottomOfChat();
+        }, 0);
       });
     });
 
