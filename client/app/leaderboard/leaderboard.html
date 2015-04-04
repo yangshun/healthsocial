@@ -9,16 +9,16 @@
   <div class="col-md-4">
     <aside class="profile-nav alt">
       <section class="panel">
-        <div class="user-heading alt sleep-bg">
-          <a href="#">
-            <i class="fa fa-facebook"></i>
+        <div class="user-heading alt type-sleep">
+          <a>
+            <i class="fa fa-bed stat-icon"></i>
           </a>
           <h2>Sleep</h2>
           <p>Number of hours slept</p>
         </div>
         <ul class="nav nav-pills nav-stacked">
           <li ng-repeat="user in users | limitTo: 10">
-            <a href=""><i>{{$index + 1}}</i> <img class="img-circle leaderboard-thumbnail" ng-src="{{ user.facebook_id | fbProfilePicture }}"> {{ user.name }} <span class="badge label-success pull-right r-activity">10</span></a>
+            <a href=""><i>{{$index + 1}}</i> <img class="img-circle row-user-thumbnail" ng-src="{{ user.facebook_id | fbProfilePicture }}"> {{ user.name }} <span class="badge label-success pull-right r-activity">10</span></a>
           </li>
         </ul>
       </section>
@@ -28,16 +28,16 @@
   <div class="col-md-4">
     <aside class="profile-nav alt">
       <section class="panel">
-        <div class="user-heading alt activity-bg">
-          <a href="#">
-            <img alt="" src="images/lock_thumb.jpg">
+        <div class="user-heading alt type-activity">
+          <a>
+            <i class="fa fa-heartbeat stat-icon"></i>
           </a>
           <h2>Activity Level</h2>
           <p>Number of calories burnt</p>
         </div>
         <ul class="nav nav-pills nav-stacked">
           <li ng-repeat="user in users | limitTo: 10">
-            <a href=""><i>{{$index + 1}}</i> <img class="img-circle leaderboard-thumbnail" ng-src="{{ user.facebook_id | fbProfilePicture }}"> {{ user.name }} <span class="badge label-danger pull-right r-activity">10</span></a>
+            <a href=""><i>{{$index + 1}}</i> <img class="img-circle row-user-thumbnail" ng-src="{{ user.facebook_id | fbProfilePicture }}"> {{ user.name }} <span class="badge label-danger pull-right r-activity">10</span></a>
           </li>
         </ul>
       </section>
@@ -47,16 +47,16 @@
   <div class="col-md-4">
     <aside class="profile-nav alt">
       <section class="panel">
-        <div class="user-heading alt weight-bg">
-          <a href="#">
-            <img alt="" src="images/lock_thumb.jpg">
+        <div class="user-heading alt type-weight">
+          <a>
+            <i class="fa fa-cutlery stat-icon"></i>
           </a>
           <h2>Weight</h2>
-          <p>Weight lost in the past week</p>
+          <p>Weight lost</p>
         </div>
         <ul class="nav nav-pills nav-stacked">
           <li ng-repeat="user in users | limitTo: 10">
-            <a href=""><i>{{$index + 1}}</i> <img class="img-circle leaderboard-thumbnail" ng-src="{{ user.facebook_id | fbProfilePicture }}"> {{ user.name }} <span class="badge label-warning pull-right r-activity">10</span></a>
+            <a href=""><i>{{$index + 1}}</i> <img class="img-circle row-user-thumbnail" ng-src="{{ user.facebook_id | fbProfilePicture }}"> {{ user.name }} <span class="badge label-warning pull-right r-activity">10</span></a>
           </li>
         </ul>
       </section>

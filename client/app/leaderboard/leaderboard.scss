@@ -1,17 +1,41 @@
-.sleep-bg {
+.type-sleep {
   background-color: #A9D86E;
 }
 
-.activity-bg {
+.type-activity {
   background-color: #FF6C60;
 }
 
-.weight-bg {
+.type-weight {
   background-color: #FCB322;
 }
 
-.leaderboard-thumbnail {
-  width: 32px;
-  margin-right: 10px;
+.user-heading.alt {
+  a {
+    border-color: #fff;
+    width: 85px;
+    height: 85px;
+    text-align: center;
+    .stat-icon {
+      line-height: 85px;
+      font-size: 48px;
+      text-align: center;
+      color: #fff;
+    }
+  }
+  p {
+    color: #fff
+  }
+}
 
+.user-heading.type-sleep a{
+  background-color: rgb(115, 190, 21);
+}
+
+.user-heading.type-activity a {
+  background-color: rgb(226, 65, 52);
+}
+
+.user-heading.type-weight a {
+  background-color: rgb(223, 157, 26);
 }

@@ -27,9 +27,21 @@ body,
 // injector
 @import 'account/login/login.scss';
 @import 'admin/admin.scss';
+@import 'analytics/analytics.scss';
 @import 'chatroom/chatroom.scss';
 @import 'community/community.scss';
 @import 'dashboard/dashboard.scss';
 @import 'feed/feed.scss';
 @import 'leaderboard/leaderboard.scss';
 // endinjector
+
+.row-user-thumbnail {
+  width: 32px;
+  margin-right: 10px;
+}
+
+.profile-nav ul>li>a>i {
+  display: inline-block;
+  width: 32px;
+  text-align: right;
+}
