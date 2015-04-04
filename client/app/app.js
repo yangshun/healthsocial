@@ -25,7 +25,7 @@ angular.module('healthsocialDevApp', [
 
   .filter('fbProfilePicture', function() {
     return function (fbId) {
-      return 'http://graph.facebook.com/' + fbId + '/picture?type=square';
+      return 'http://graph.facebook.com/' + fbId + '/picture?width=256&height=256';
     };
   })
 
