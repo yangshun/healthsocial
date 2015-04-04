@@ -96,7 +96,6 @@ a,a:hover,a:focus {
 .form-signin input[type="text"],
 .form-signin input[type="email"],
 .form-signin input[type="password"] {
-    margin-bottom:15px;
     border-radius:5px;
     -webkit-border-radius:5px;
     border:1px solid #eaeaea;

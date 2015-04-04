@@ -19,6 +19,10 @@ body,
   height: 100%;
 }
 
+.logo-registration {
+  width: 90%;
+}
+
 // Component styles are injected through grunt
 // injector
 @import 'account/login/login.scss';

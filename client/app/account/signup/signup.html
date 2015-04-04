@@ -1,15 +1,18 @@
 <div class="login-body">
   <div class="container">
     <form class="form-signin" name="form" ng-submit="register(form)" novalidate>
-      <h2 class="form-signin-heading">sign up</h2>
+      <h2 class="form-signin-heading">
+        <img class="logo-registration" src="assets/images/healthsocial-logo.png">
+      </h2>
       <div class="login-wrap">
 
         <div class="form-group" ng-class="{ 'has-success': form.name.$valid && submitted,
                                             'has-error': form.name.$invalid && submitted }">
           <label>Name</label>
-
-          <input type="text" name="name" class="form-control" ng-model="user.name"
-                 required/>
+          <div class="input-group m-bot15">
+            <span class="input-group-addon btn-white"><i class="fa fa-fw fa-user"></i></span>
+            <input type="text" name="name" class="form-control" placeholder="Your Name" ng-model="user.name" required>
+          </div>
           <p class="help-block" ng-show="form.name.$error.required && submitted">
             A name is required
           </p>
@@ -18,10 +21,13 @@
         <div class="form-group" ng-class="{ 'has-success': form.email.$valid && submitted,
                                             'has-error': form.email.$invalid && submitted }">
           <label>Email</label>
-
-          <input type="email" name="email" class="form-control" ng-model="user.email"
+          <div class="input-group m-bot15">
+            <span class="input-group-addon btn-white"><i class="fa fa-fw fa-envelope"></i></span>
+            <input type="email" name="email" class="form-control" placeholder="Your Email" ng-model="user.email"
                  required
-                 mongoose-error/>
+                 mongoose-error>
+          </div>
+          
           <p class="help-block" ng-show="form.email.$error.email && submitted">
             Doesn't look like a valid email.
           </p>
@@ -36,11 +42,14 @@
         <div class="form-group" ng-class="{ 'has-success': form.password.$valid && submitted,
                                             'has-error': form.password.$invalid && submitted }">
           <label>Password</label>
-
-          <input type="password" name="password" class="form-control" ng-model="user.password"
+          <div class="input-group m-bot15">
+            <span class="input-group-addon btn-white"><i class="fa fa-fw fa-lock"></i></span>
+            <input type="password" name="password" class="form-control" placeholder="Your Password" ng-model="user.password"
                  ng-minlength="3"
                  required
                  mongoose-error/>
+          </div>
+         
           <p class="help-block"
              ng-show="(form.password.$error.minlength || form.password.$error.required) && submitted">
             Password must be at least 3 characters.
