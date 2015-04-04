@@ -8,9 +8,9 @@ angular.module('healthsocialDevApp').controller('NavCtrl', function ($scope, $lo
       link: '/'
     },
     {
-      title: 'Data Analysis',
+      title: 'Analytics',
       icon: 'fa-bar-chart-o',
-      link: '/analysis'
+      link: '/analytics'
     },
     {
       title: 'Activity Feed',

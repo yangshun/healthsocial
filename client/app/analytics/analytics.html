@@ -1,0 +1,43 @@
+<div ng-include="'components/nav/nav.html'"></div>
+
+<section id="container">
+<!--main content start-->
+<section id="main-content">
+<section class="wrapper">
+
+<div class="row">
+  <div class="col-md-3">
+    <aside class="profile-nav alt">
+      <section class="panel">
+        <header class="panel-heading">
+          All Users
+        </header>
+        <ul class="nav nav-pills nav-stacked">
+          <li class="users-section-heading">
+            <div class="form-group">
+              <input type="text" class="form-control" ng-model="usersSearchText" placeholder="Search Users">
+            </div>
+          </li>
+          <li ng-repeat="user in filteredUsers = (users | filter:usersSearchText)">
+            <a href ng-click="user.selected = !user.selected"><img class="img-circle row-user-thumbnail" ng-src="{{ user.facebook_id | fbProfilePicture }}"> {{ user.name }} <span ng-show="user.selected" class="badge label-success pull-right r-activity"><i class="fa fa-check"></i></span></a>
+          </li>
+          <li ng-if="filteredUsers.length === 0">
+            <a>
+              No users matched for "{{ usersSearchText }}".
+            </a>
+          </li>
+        </ul>
+      </section>
+    </aside>
+  </div>
+
+  <div class="col-md-9">
+    
+  </div>
+
+</div>
+
+</section>
+</section>
+<!--main content end-->
+</section>
