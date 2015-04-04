@@ -5,7 +5,6 @@ angular.module('healthsocialDevApp')
     $scope.users = [];
 
     $http.get('/api/users').success(function (users) {
-      console.log(users)
       $scope.users = users;
     });
   });
