@@ -7,6 +7,7 @@
 
 var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
+var _ = require('lodash');
 
 Thing.find({}).remove(function() {
   Thing.create({
@@ -30,7 +31,18 @@ Thing.find({}).remove(function() {
   });
 });
 
+var seedUsers = require('../data/users.json');
+
 User.find({}).remove(function() {
+  _.each(seedUsers, function (user) {
+    User.create({
+      provider: 'local',
+      name: user.name,
+      email: user.email,
+      facebook_id: user.facebook_id,
+      password: 'test'
+    });
+  });
   User.create({
     provider: 'local',
     name: 'Test User',
