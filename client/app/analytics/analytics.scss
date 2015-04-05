@@ -1,6 +1,28 @@
-.users-section-heading {
-  padding: 15px;
-  .form-group {
-    margin-bottom: 0;
+
+.hs-analytics {
+  .users-section-heading {
+    padding: 15px;
+    .form-group {
+      margin-bottom: 0;
+    }
+  }
+
+  .analytics-selected-users {
+    padding-left: 0;
+    .analytics-selected-users-item {
+      background-color: #F6F6F6;
+      border-radius: 100px;
+      display: inline-block;
+      margin-bottom: 10px;
+      margin-right: 10px;
+      padding-right: 5px;
+      a {
+        color: #fff;
+      }
+    }
+  }
+
+  .row-user-thumbnail {
+    margin-right: 0;
   }
 }

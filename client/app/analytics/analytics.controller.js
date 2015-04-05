@@ -1,17 +1,40 @@
 'use strict';
 
+var CHART_COLORS = ['#cb6077', '#d28b71', '#f4bc87', '#beb55b', '#7bbda4', '#8ab3b5', '#a89bb9', '#bb9584', 
+                    '#210b10', '#341a10', '#723d0a', '#131207', '#13261f', '#192727', '#292332', '#291c17'];
+
 angular.module('healthsocialDevApp')
   .controller('AnalyticsCtrl', function ($scope, Auth) {
+    $scope.selectedUsers = [];
+
     Auth.getAllUsers().then(function (data) {
       $scope.users = data;
       setTimeout(draw, 0);
     });
+
+    $scope.$watchCollection('selectedUsers', function () {
+        if (!$scope.selectedUsers) {
+            return;
+        }
+
+        var index = 0;
+        $scope.selectedUsers.forEach(function (user) {
+            user.color = CHART_COLORS[index];
+            index++;
+        });
+
+        draw($scope.selectedUsers);
+    });
   });
 
 
-function draw() {
+function draw (selectedUsers) {
+
+    if (!selectedUsers) {
+        return;
+    }
     var t;
-    function size(animate){
+    function size(animate) {
         if (animate == undefined){
             animate = false;
         }
@@ -32,8 +55,7 @@ function draw() {
     }
     $(window).on('resize', function(){ size(false); });
 
-
-    function redraw(animation){
+    function redraw(animation) {
         var options = {};
         if (!animation){
             options.animation = false;
@@ -41,26 +63,38 @@ function draw() {
             options.animation = true;
         }
 
-
         var barChartData = {
-            labels : ["January","February","March","April","May","June","July"],
-            datasets : [
-                {
-                    fillColor : "#E67A77",
-                    strokeColor : "#E67A77",
-                    data : [65,59,90,81,56,55,40]
-                },
-                {
-                    fillColor : "#79D1CF",
-                    strokeColor : "#79D1CF",
-                    data : [28,48,40,19,96,27,100]
-                }
-            ]
+            labels: ["January", "February", "March", "April"],
+            datasets: []
+        };
 
-        }
+        selectedUsers.forEach(function (user) {
+            barChartData.datasets.push({
+                fillColor: user.color,
+                strokeColor: user.color,
+                data: user.sleep_log.slice(0, 4).map(function (dataPoint) {
+                    return dataPoint.minutes;
+                })
+            });
+        });
+
+        // var barChartData = {
+        //     labels : ["January", "February", "March", "April"],
+        //     datasets : [
+        //         {
+        //             fillColor : "#E67A77",
+        //             strokeColor : "#E67A77",
+        //             data : [65,59,90,81]
+        //         },
+        //         {
+        //             fillColor : "#79D1CF",
+        //             strokeColor : "#79D1CF",
+        //             data : [28,48,40,19]
+        //         }
+        //     ]
+        // }
 
         var myLine = new Chart(document.getElementById("bar-chart-js").getContext("2d")).Bar(barChartData);
-
 
         var Linedata = {
             labels : ["January","February","March","April","May","June","July"],
@@ -92,8 +126,6 @@ function draw() {
         var myLineChart = new Chart(document.getElementById("line-chart-js").getContext("2d")).Line(Linedata, {
             legendTemplate : '<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>'
         });
-        console.log(myLineChart.generateLegend());
-
         var pieData = [
             {
                 value: 30,
@@ -111,8 +143,6 @@ function draw() {
         ];
 
         var myPie = new Chart(document.getElementById("pie-chart-js").getContext("2d")).Pie(pieData);
-
-
 
         var donutData = [
             {

@@ -5,21 +5,24 @@
 <section id="main-content">
 <section class="wrapper">
 
-<div class="row">
+<div class="row hs-analytics">
   <div class="col-md-3">
     <aside class="profile-nav alt">
       <section class="panel">
         <header class="panel-heading">
           All Users
         </header>
-        <ul class="nav nav-pills nav-stacked">
+        <ul class="nav nav-pills nav-stacked analytics-users-sidebar-item">
           <li class="users-section-heading">
             <div class="form-group">
               <input type="text" class="form-control" ng-model="usersSearchText" placeholder="Search Users">
             </div>
           </li>
-          <li ng-repeat="user in filteredUsers = (users | filter:usersSearchText)">
-            <a href ng-click="user.selected = !user.selected"><img class="img-circle row-user-thumbnail" ng-src="{{ user.facebook_id | fbProfilePicture }}"> {{ user.name }} <span ng-show="user.selected" class="badge label-success pull-right r-activity"><i class="fa fa-check"></i></span></a>
+          <li class="analytics-users-sidebar-item" ng-repeat="user in filteredUsers = (users | filter:usersSearchText)">
+            <a href ng-click="user.selected = !user.selected">
+              <img class="img-circle row-user-thumbnail" ng-src="{{ user.facebook_id | fbProfilePicture }}"> {{ user.name }} 
+              <span ng-show="user.selected" class="badge label-success pull-right r-activity analytics-users-sidebar-check"><i class="fa fa-check"></i></span>
+            </a>
           </li>
           <li ng-if="filteredUsers.length === 0">
             <a>
@@ -32,10 +35,28 @@
   </div>
 
   <div class="col-md-9">
+
     <div class="row">
       <div class="col-sm-12">
         <section class="panel">
-          <header class="panel-heading">Bar Chart</header>
+          <header class="panel-heading">Configuration Options</header>
+          <div class="panel-body">
+            <h5>Selected Users:</h5>
+            <p ng-if="selectedUsers.length === 0">No users selected</p>
+            <ul class="analytics-selected-users">
+              <li class="analytics-selected-users-item" ng-repeat="user in selectedUsers = (users | filter:{selected: true})" style="background-color: {{user.color}}">
+                <a href ng-click="user.selected = !user.selected"><img class="img-circle row-user-thumbnail" ng-src="{{ user.facebook_id | fbProfilePicture }}"> {{ user.name }} <i class="fa fa-times"></i></a>
+              </li>
+            </ul>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <section class="panel">
+          <header class="panel-heading">Sleep</header>
           <div class="panel-body">
             <div class="chartJS">
               <canvas id="bar-chart-js" height="250" width="800" ></canvas>
@@ -44,6 +65,7 @@
         </section>
       </div>
     </div>
+
     <div class="row">
       <div class="col-sm-12">
         <section class="panel">
@@ -56,6 +78,7 @@
         </section>
       </div>
     </div>
+
     <div class="row">
       <div class="col-sm-6">
         <section class="panel">
