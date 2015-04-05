@@ -14,11 +14,11 @@
             <i class="fa fa-bed stat-icon"></i>
           </a>
           <h2>Sleep</h2>
-          <p>Number of hours slept</p>
+          <p>Number of minutes slept</p>
         </div>
         <ul class="nav nav-pills nav-stacked">
-          <li ng-repeat="user in users | limitTo: 10">
-            <a href=""><i>{{$index + 1}}</i> <img class="img-circle row-user-thumbnail" ng-src="{{ user.facebook_id | fbProfilePicture }}"> {{ user.name }} <span class="badge label-success pull-right r-activity">10</span></a>
+          <li ng-repeat="user in users | orderBy: '-average_sleep' | limitTo: 10">
+            <a href=""><i>{{$index + 1}}</i> <img class="img-circle row-user-thumbnail" ng-src="{{ user.facebook_id | fbProfilePicture }}"> {{ user.name }} <span class="badge label-success pull-right r-activity">{{ user.average_sleep }}</span></a>
           </li>
         </ul>
       </section>
@@ -36,8 +36,8 @@
           <p>Number of calories burnt</p>
         </div>
         <ul class="nav nav-pills nav-stacked">
-          <li ng-repeat="user in users | limitTo: 10">
-            <a href=""><i>{{$index + 1}}</i> <img class="img-circle row-user-thumbnail" ng-src="{{ user.facebook_id | fbProfilePicture }}"> {{ user.name }} <span class="badge label-danger pull-right r-activity">10</span></a>
+          <li ng-repeat="user in users | orderBy: '-average_activity' | limitTo: 10">
+            <a href=""><i>{{$index + 1}}</i> <img class="img-circle row-user-thumbnail" ng-src="{{ user.facebook_id | fbProfilePicture }}"> {{ user.name }} <span class="badge label-danger pull-right r-activity">{{ user.average_activity }}</span></a>
           </li>
         </ul>
       </section>
@@ -52,11 +52,11 @@
             <i class="fa fa-cutlery stat-icon"></i>
           </a>
           <h2>Weight</h2>
-          <p>Weight lost</p>
+          <p>Average weight</p>
         </div>
         <ul class="nav nav-pills nav-stacked">
-          <li ng-repeat="user in users | limitTo: 10">
-            <a href=""><i>{{$index + 1}}</i> <img class="img-circle row-user-thumbnail" ng-src="{{ user.facebook_id | fbProfilePicture }}"> {{ user.name }} <span class="badge label-warning pull-right r-activity">10</span></a>
+          <li ng-repeat="user in users | orderBy: '-average_weight' | limitTo: 10">
+            <a href=""><i>{{$index + 1}}</i> <img class="img-circle row-user-thumbnail" ng-src="{{ user.facebook_id | fbProfilePicture }}"> {{ user.name }} <span class="badge label-warning pull-right r-activity">{{ user.average_weight }}</span></a>
           </li>
         </ul>
       </section>
