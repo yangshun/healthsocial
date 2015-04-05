@@ -3,6 +3,8 @@
 angular.module('healthsocialDevApp')
   .factory('Auth', function Auth($location, $rootScope, $http, User, $cookieStore, $q) {
     var currentUser = {};
+    var allUsers = [];
+
     if($cookieStore.get('token')) {
       currentUser = User.get();
     }
@@ -99,6 +101,45 @@ angular.module('healthsocialDevApp')
        */
       getCurrentUser: function() {
         return currentUser;
+      },
+
+      getAllUsers: function (callback) {
+        var cb = callback || angular.noop;
+        var deferred = $q.defer();
+
+        if (allUsers.length) {
+          deferred.resolve(allUsers);
+          return cb();
+        }
+
+        $http.get('/api/users').success(function (users) {
+          console.log('Fetching all users data');
+          allUsers = users;
+          allUsers.forEach(function (user) {
+            var totalCalories = user.activity_log.reduce(function (a, b) {
+              return a + b.calories;
+            }, 0);
+            user.average_activity = Math.round(totalCalories / user.activity_log.length);
+
+            var totalWeight = user.weight_log.reduce(function (a, b) {
+              return a + b.kilograms;
+            }, 0);
+            user.average_weight = Math.round(totalWeight / user.weight_log.length);
+
+            var totalSleep = user.sleep_log.reduce(function (a, b) {
+              return a + b.minutes;
+            }, 0);
+            user.average_sleep = Math.round(totalSleep / user.sleep_log.length);
+          });
+          deferred.resolve(allUsers);
+          return cb();
+        }).
+        error(function(err) {
+          deferred.reject(err);
+          return cb(err);
+        }.bind(this));
+
+        return deferred.promise;
       },
 
       /**
