@@ -2,9 +2,9 @@
 
 angular.module('healthsocialDevApp')
   .controller('FeedCtrl', function ($scope, $http, socket, Auth) {
-    $scope.awesomePosts = [];
+    $scope.posts = [];
 
-    $http.get('/api/posts').success(function(posts) {
+    $http.get('/api/posts').success(function (posts) {
       $scope.posts = posts;
       socket.syncUpdates('post', $scope.posts);
     });
