@@ -7,7 +7,7 @@ var SleepSchema = new Schema({
   _creator : { type: Schema.Types.ObjectId, ref: 'User' },
   date: Date,
   created_date: { type: Date, default: Date.now },
-  hours: Number,
+  minutes: Number,
   active: Boolean
 });
 

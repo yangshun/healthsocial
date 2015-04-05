@@ -5,36 +5,23 @@
 
 'use strict';
 
-var Thing = require('../api/thing/thing.model');
-var User = require('../api/user/user.model');
 var _ = require('lodash');
-
-Thing.find({}).remove(function() {
-  Thing.create({
-    name : 'Development Tools',
-    info : 'Integration with popular tools such as Bower, Grunt, Karma, Mocha, JSHint, Node Inspector, Livereload, Protractor, Jade, Stylus, Sass, CoffeeScript, and Less.'
-  }, {
-    name : 'Server and Client integration',
-    info : 'Built with a powerful and fun stack: MongoDB, Express, AngularJS, and Node.'
-  }, {
-    name : 'Smart Build System',
-    info : 'Build system ignores `spec` files, allowing you to keep tests alongside code. Automatic injection of scripts and styles into your index.html'
-  },  {
-    name : 'Modular Structure',
-    info : 'Best practice client and server structures allow for more code reusability and maximum scalability'
-  },  {
-    name : 'Optimized Build',
-    info : 'Build process packs up your templates as a single JavaScript payload, minifies your scripts/css/images, and rewrites asset names for caching.'
-  },{
-    name : 'Deployment Ready',
-    info : 'Easily deploy your app to Heroku or Openshift with the heroku and openshift subgenerators'
-  });
-});
-
-var seedUsers = require('../data/users.json');
 var http = require('http');
 var async = require('async');
+var moment = require('moment');
 
+var User = require('../api/user/user.model');
+var Post = require('../api/post/post.model');
+var Sleep = require('../api/sleep/sleep.model');
+var Activity = require('../api/activity/activity.model');
+var Weight = require('../api/weight/weight.model');
+
+var seedUsers = require('../data/users.json');
+
+Post.find({}).remove(function () {});
+Sleep.find({}).remove(function () {});
+Activity.find({}).remove(function () {});
+Weight.find({}).remove(function () {});
 User.find({}).remove(function() {
 
   function getFacebookCoverPhoto (user, callback) {
@@ -53,25 +40,70 @@ User.find({}).remove(function() {
     });
   }
 
+  function getVariedValue (value, variance, dp) {
+    if (dp === undefined) {
+      dp = 0;
+    }
+    var min = value + variance;
+    var max = value - variance;
+    var divisor = Math.pow(10, dp);
+    return Math.round((Math.random() * (max - min) + min) * divisor) / divisor;
+  }
+
   async.map(seedUsers, getFacebookCoverPhoto, function (err, users) {
     _.each(users, function (user) {
-      User.create({
-        provider: 'local',
-        name: user.name,
-        email: user.email,
-        facebook_id: user.facebook_id,
-        password: 'test',
-        facebook_cover_photo: user.facebook_cover_photo
+      var newUser = new User({
+                    provider: 'local',
+                    name: user.name,
+                    email: user.email,
+                    facebook_id: user.facebook_id,
+                    password: 'test',
+                    facebook_cover_photo: user.facebook_cover_photo
+                  });
+
+      newUser.save(function (err) {
+        var newPost = new Post({
+                        content: 'Hi everyone, I\'m ' + newUser.name + '!',
+                        _creator: newUser._id
+                      });
+        newUser.posts.push(newPost);
+        newPost.save();
+
+        for (var i = 1; i <= 180; i++) {
+          // Populate data for half a year
+          var date = new Date(moment().dayOfYear(i));
+          var minutes = getVariedValue(user.sleep, user.sleep_variance, 0);
+          var newSleep = new Sleep({
+            _creator: newUser._id,
+            date: date,
+            minutes: minutes
+          });
+          newUser.sleep_log.push(newSleep);
+          newSleep.save();
+
+          var newActivity = new Activity({
+            _creator: newUser._id,
+            date: date,
+            calories: getVariedValue(user.activity, user.activity_variance, 0)
+          });
+          newUser.activity_log.push(newActivity);
+          newActivity.save();
+
+          var newWeight = new Weight({
+            _creator: newUser._id,
+            date: date,
+            kilograms: getVariedValue(user.weight, user.weight_variance, 1)
+          });
+          newUser.weight_log.push(newWeight);
+          newWeight.save();
+        }
+        newUser.save();
+        console.log('Added user:', user.name);
       });
     });
   });
 
   User.create({
-    provider: 'local',
-    name: 'Test User',
-    email: 'test@test.com',
-    password: 'test'
-  }, {
     provider: 'local',
     role: 'admin',
     name: 'Admin',
