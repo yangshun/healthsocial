@@ -16,10 +16,10 @@ var validationError = function(res, err) {
 exports.index = function(req, res) {
   User.find({}, '-salt -hashedPassword')
   .where('role').ne('admin')
-  .populate('posts')
-  .populate('sleep_log')
-  .populate('activity_log')
-  .populate('weight_log')
+  .populate('posts', 'content created_date')
+  .populate('sleep_log', 'minutes date')
+  .populate('activity_log', 'calories date')
+  .populate('weight_log', 'kilograms date')
   .exec(function (err, users) {
     if(err) return res.send(500, err);
     res.json(200, users);
