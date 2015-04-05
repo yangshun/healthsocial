@@ -48,11 +48,10 @@ angular.module('healthsocialDevApp').controller('NavCtrl', function ($scope, $lo
     return route === $location.path();
   };
 
-  console.log('navbar');
-  navbar();
+  nav();
 });
 
-function navbar () {
+function nav () {
   (function ($) {
 
     $(document).ready(function () {
