@@ -37,12 +37,12 @@
                       </div>
                     </form> -->
                   </h3>
-                  <div class="msg-time-chat" ng-repeat="post in posts.slice().reverse()">
+                  <div class="msg-time-chat" ng-repeat="post in posts | orderBy: '-created_date'">
                     <div class="message-body">
                       <div class="text">
                         <div class="post-container">
                           <div class="post-message">
-                            <img class="img-circle post-thumbnail" ng-src="{{ post._creator.facebook_id | fbProfilePicture }}" alt="{{post._creator.name}} Profile Picture"> <a class="post-creator" href="">{{post._creator.name}}</a> posted an activity &middot; {{post.date | fromPresentDate}}
+                            <img class="img-circle post-thumbnail" ng-src="{{ post._creator.facebook_id | fbProfilePicture }}" alt="{{post._creator.name}} Profile Picture"> <a class="post-creator" href="">{{post._creator.name}}</a> posted an activity &middot; {{post.created_date | fromPresentDate}}
                           </div>
                           <div class="panel post-content-container">
                             <div class="panel-body">
