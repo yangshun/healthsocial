@@ -18,22 +18,22 @@
           <a class="user-link" href="#">
             <img alt="{{user.name}} Profile Picture" ng-src="{{user.facebook_id | fbProfilePicture}}">
           </a>
-          <h2 class="user-name">{{user.name}}</h2>
-          <p class="user-email">{{user.email}}</p>
+          <h2 class="user-name">{{ user.name }}</h2>
+          <p class="user-email">{{ user.email }}</p>
         </div>
       </div>
       <div class="weather-category twt-category">
         <ul>
           <li class="active">
-            <h5>750</h5>
+            <h5>{{ user.average_activity }}</h5>
             Activity
           </li>
           <li>
-            <h5>865</h5>
+            <h5>{{ user.average_sleep }}</h5>
             Sleep
           </li>
           <li>
-            <h5>3645</h5>
+            <h5>{{ user.average_weight }}</h5>
             Weight
           </li>
         </ul>

@@ -1,14 +1,11 @@
 'use strict';
 
 angular.module('healthsocialDevApp')
-  .controller('AnalyticsCtrl', function ($scope, $http) {
-    $scope.users = [];
-
-    $http.get('/api/users').success(function (users) {
-      $scope.users = users;
+  .controller('AnalyticsCtrl', function ($scope, Auth) {
+    Auth.getAllUsers().then(function (data) {
+      $scope.users = data;
+      setTimeout(draw, 0);
     });
-
-    setTimeout(draw, 0);
   });
 
 

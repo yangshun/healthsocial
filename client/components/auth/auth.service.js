@@ -109,7 +109,7 @@ angular.module('healthsocialDevApp')
 
         if (allUsers.length) {
           deferred.resolve(allUsers);
-          return cb();
+          return deferred.promise;
         }
 
         $http.get('/api/users').success(function (users) {
