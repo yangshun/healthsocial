@@ -18,6 +18,12 @@ function onConnect(socket) {
   });
 
   // Insert sockets below
+  require('../api/blood_pressure/blood_pressure.socket').register(socket);
+  require('../api/fluid_intake/fluid_intake.socket').register(socket);
+  require('../api/heart_rate/heart_rate.socket').register(socket);
+  require('../api/weight/weight.socket').register(socket);
+  require('../api/activity/activity.socket').register(socket);
+  require('../api/sleep/sleep.socket').register(socket);
   require('../api/message/message.socket').register(socket);
   require('../api/thing/thing.socket').register(socket);
   require('../api/post/post.socket').register(socket);

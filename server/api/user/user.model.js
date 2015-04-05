@@ -18,7 +18,13 @@ var UserSchema = new Schema({
   facebook_id: String,
   facebook_cover_photo: String,
   facebook: {},
-  github: {}
+  github: {},
+  activity_log: [{ type: Schema.Types.ObjectId, ref: 'Activity' }],
+  blood_pressure_log: [{ type: Schema.Types.ObjectId, ref: 'BloodPressure' }],
+  fluid_intake_log: [{ type: Schema.Types.ObjectId, ref: 'FluidIntake' }],
+  heart_rate_log: [{ type: Schema.Types.ObjectId, ref: 'HeartRate' }],
+  sleep_log: [{ type: Schema.Types.ObjectId, ref: 'Sleep' }],
+  weight_log: [{ type: Schema.Types.ObjectId, ref: 'Weight' }]
 });
 
 /**

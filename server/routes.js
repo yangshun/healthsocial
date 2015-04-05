@@ -9,6 +9,12 @@ var errors = require('./components/errors');
 module.exports = function(app) {
 
   // Insert routes below
+  app.use('/api/blood_pressures', require('./api/blood_pressure'));
+  app.use('/api/fluid_intakes', require('./api/fluid_intake'));
+  app.use('/api/heart_rates', require('./api/heart_rate'));
+  app.use('/api/weights', require('./api/weight'));
+  app.use('/api/activitys', require('./api/activity'));
+  app.use('/api/sleeps', require('./api/sleep'));
   app.use('/api/messages', require('./api/message'));
   app.use('/api/things', require('./api/thing'));
   app.use('/api/posts', require('./api/post'));
