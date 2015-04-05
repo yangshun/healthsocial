@@ -5,7 +5,7 @@ var mongoose = require('mongoose'),
 
 var MessageSchema = new Schema({
   _creator : { type: Schema.Types.ObjectId, ref: 'User' },
-  date: { type: Date, default: Date.now },
+  created_date: { type: Date, default: Date.now },
   content: String,
   info: String,
   active: Boolean
