@@ -6,6 +6,7 @@ var CHART_COLORS = ['#cb6077', '#d28b71', '#f4bc87', '#beb55b', '#7bbda4', '#8ab
 angular.module('healthsocialDevApp')
   .controller('AnalyticsCtrl', function ($scope, Auth) {
     $scope.selectedUsers = [];
+    $scope.granularity = 'day';
 
     Auth.getAllUsers().then(function (data) {
       $scope.users = data;
@@ -25,70 +26,91 @@ angular.module('healthsocialDevApp')
             index++;
         });
 
-        draw($scope.selectedUsers);
+        updateCharts();        
     });
+
+    $scope.dateRange = moment().subtract(28, 'days').format('DD/MM/YYYY') + ' - ' + moment().format('DD/MM/YYYY');
+    setTimeout(function () {
+        $('input[name="daterange"]').daterangepicker({
+            format: 'DD/MM/YYYY',
+            minDate: '01/01/2015',
+            maxDate: moment()
+        });
+        $('input[name="daterange"]').on('apply.daterangepicker', function (ev, picker) {
+            updateCharts();
+        });
+    }, 0);
+
+    function updateCharts () {
+        var startDate = $scope.dateRange.split(' - ')[0];
+        var endDate = $scope.dateRange.split(' - ')[1];
+        draw($scope.selectedUsers, startDate, endDate, $scope.granularity);
+    }
+    
 });
 
-var myLine;
+var barChart;
+var lineChart;
 
-function draw (selectedUsers) {
-    if (!selectedUsers) {
+function draw (selectedUsers, startDate, endDate, granularity) {
+    if (!selectedUsers || selectedUsers.length === 0) {
         return;
     }
+    console.log(selectedUsers);
+    var startDate = moment(startDate, 'DD/MM/YYYY').format('YYYY-MM-DD');
+    var startIndex = 0;
+    selectedUsers[0].sleep_log.every(function (item, index) {
+        if (item.date === startDate) {
+            startIndex = index;
+            return false;    
+        } else {
+            return true;
+        }
+    });
 
-    var barChartData = {
-        labels: ["January", "February", "March", "April"],
+    var endDate = moment(endDate, 'DD/MM/YYYY').format('YYYY-MM-DD');
+    var endIndex = 0;
+    selectedUsers[0].sleep_log.every(function (item, index) {
+        if (item.date === endDate) {
+            endIndex = index;
+            return false;    
+        } else {
+            return true;
+        }
+    });
+
+    var chartData = {
+        labels: selectedUsers[0].sleep_log.slice(startIndex, endIndex+1).map(function (dataPoint) {
+            return dataPoint.date;
+        }),
         datasets: []
     };
 
     selectedUsers.forEach(function (user) {
-        barChartData.datasets.push({
+        chartData.datasets.push({
             fillColor: user.color,
             strokeColor: user.color,
-            data: user.sleep_log.slice(0, 4).map(function (dataPoint) {
+            pointColor: user.color,
+            pointStrokeColor: '#fff',
+            data: user.sleep_log.slice(startIndex, endIndex+1).map(function (dataPoint) {
                 return dataPoint.minutes;
             })
         });
     });
 
-    var barChartCanvas = document.getElementById("bar-chart-js");
-    barChartCanvas.getContext("2d").clearRect(0, 0, barChartCanvas.width, barChartCanvas.height);
-
-    if (myLine) {
-        myLine.destroy();
+    if (barChart) {
+        barChart.destroy();
     }
-    myLine = new Chart(barChartCanvas.getContext("2d")).Bar(barChartData);
+    barChart = new Chart(document.getElementById("bar-chart-js").getContext("2d")).Bar(chartData);
 
-    var Linedata = {
-        labels : ["January","February","March","April","May","June","July"],
-        datasets : [
-            {
-                fillColor : "#E67A77",
-                strokeColor : "#E67A77",
-                pointColor : "#E67A77",
-                pointStrokeColor : "#fff",
-                data : [100,159,190,281,156,155,140]
-            },
-            {
-                fillColor : "#79D1CF",
-                strokeColor : "#79D1CF",
-                pointColor : "#79D1CF",
-                pointStrokeColor : "#fff",
-                data : [65,59,90,181,56,55,40]
-            },
-            {
-                fillColor : "#D9DD81",
-                strokeColor : "#D9DD81",
-                pointColor : "#D9DD81",
-                pointStrokeColor : "#fff",
-                data : [28,48,40,19,96,27,100]
-            }
+    if (lineChart) {
+        lineChart.destroy();
+    }
+    chartData.datasets.forEach(function (dataset) {
+        dataset.fillColor = 'transparent';
+    })
+    lineChart = new Chart(document.getElementById("line-chart-js").getContext("2d")).Line(chartData);
 
-        ]
-    };
-    var myLineChart = new Chart(document.getElementById("line-chart-js").getContext("2d")).Line(Linedata, {
-        legendTemplate : '<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>'
-    });
 
     var pieData = [
         {

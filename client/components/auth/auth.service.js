@@ -120,16 +120,25 @@ angular.module('healthsocialDevApp')
               return a + b.calories;
             }, 0);
             user.average_activity = Math.round(totalCalories / user.activity_log.length);
+            user.activity_log.forEach(function (item) {
+              item.date = item.date.split('T')[0];
+            })
 
             var totalWeight = user.weight_log.reduce(function (a, b) {
               return a + b.kilograms;
             }, 0);
             user.average_weight = Math.round(totalWeight / user.weight_log.length);
+            user.weight_log.forEach(function (item) {
+              item.date = item.date.split('T')[0];
+            })
 
             var totalSleep = user.sleep_log.reduce(function (a, b) {
               return a + b.minutes;
             }, 0);
             user.average_sleep = Math.round(totalSleep / user.sleep_log.length);
+            user.sleep_log.forEach(function (item) {
+              item.date = item.date.split('T')[0];
+            })
           });
           deferred.resolve(allUsers);
           return cb();

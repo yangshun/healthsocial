@@ -41,13 +41,50 @@
         <section class="panel">
           <header class="panel-heading">Configuration Options</header>
           <div class="panel-body">
-            <h5>Selected Users:</h5>
-            <p ng-if="selectedUsers.length === 0">No users selected</p>
-            <ul class="analytics-selected-users">
-              <li class="analytics-selected-users-item" ng-repeat="user in selectedUsers = (users | filter:{selected: true})" style="background-color: {{user.color}}">
-                <a href ng-click="user.selected = !user.selected"><img class="img-circle row-user-thumbnail" ng-src="{{ user.facebook_id | fbProfilePicture }}"> {{ user.name }} <i class="fa fa-times"></i></a>
-              </li>
-            </ul>
+
+          <form class="form-horizontal">
+
+            <div class="form-group">
+              <label class="control-label col-md-2">Date Range</label>
+              <div class="col-md-4">
+                <input type="text" class="form-control" name="daterange" ng-model="dateRange">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label col-md-2">Granularity</label>
+              <div class="col-md-8">
+                <div class="radio-inline">
+                  <label>
+                    <input type="radio" name="inlineRadioOptions" ng-model="granularity" value="day"> Day
+                  </label>
+                </div>
+                <div class="radio-inline">
+                  <label>
+                    <input type="radio" name="inlineRadioOptions" ng-model="granularity" value="week"> Week
+                  </label>
+                </div>
+                <div class="radio-inline">
+                  <label>
+                    <input type="radio" name="inlineRadioOptions" ng-model="granularity" value="month"> Month
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label col-md-2">Selected users</label>
+              <div class="col-md-10">
+                <label class="control-label" ng-if="selectedUsers.length === 0">No users selected</label>
+                <ul class="analytics-selected-users">
+                  <li class="analytics-selected-users-item" ng-repeat="user in selectedUsers = (users | filter:{selected: true})" style="background-color: {{user.color}}">
+                    <a href ng-click="user.selected = !user.selected"><img class="img-circle row-user-thumbnail" ng-src="{{ user.facebook_id | fbProfilePicture }}"> {{ user.name }} <i class="fa fa-times"></i></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+          </form>
           </div>
         </section>
       </div>
@@ -56,7 +93,7 @@
     <div class="row">
       <div class="col-sm-12">
         <section class="panel">
-          <header class="panel-heading">Sleep</header>
+          <header class="panel-heading">Sleep - Bar Chart</header>
           <div class="panel-body">
             <div class="chartJS">
               <canvas id="bar-chart-js" height="250" width="800" ></canvas>
@@ -69,7 +106,7 @@
     <div class="row">
       <div class="col-sm-12">
         <section class="panel">
-          <header class="panel-heading">Area Chart</header>
+          <header class="panel-heading">Sleep - Line Chart</header>
           <div class="panel-body">
             <div class="chartJS">
               <canvas id="line-chart-js" height="250" width="800" ></canvas>
@@ -79,7 +116,7 @@
       </div>
     </div>
 
-    <div class="row">
+<!--     <div class="row">
       <div class="col-sm-6">
         <section class="panel">
           <header class="panel-heading">Pie Chart</header>
@@ -100,7 +137,7 @@
           </div>
         </section>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
 
