@@ -14,7 +14,7 @@
             <i class="fa fa-bed stat-icon"></i>
           </a>
           <h2>Sleep</h2>
-          <p>Number of minutes slept</p>
+          <p>Minutes slept</p>
         </div>
         <ul class="nav nav-pills nav-stacked">
           <li ng-repeat="user in users | orderBy: '-average_sleep' | limitTo: 10">
@@ -33,7 +33,7 @@
             <i class="fa fa-heartbeat stat-icon"></i>
           </a>
           <h2>Activity Level</h2>
-          <p>Number of calories burnt</p>
+          <p>Calories burnt</p>
         </div>
         <ul class="nav nav-pills nav-stacked">
           <li ng-repeat="user in users | orderBy: '-average_activity' | limitTo: 10">
