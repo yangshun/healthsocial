@@ -19,6 +19,7 @@ module.exports = function(app) {
   app.use('/api/things', require('./api/thing'));
   app.use('/api/posts', require('./api/post'));
   app.use('/api/users', require('./api/user'));
+  app.use('/weather', require('./api/weather'));
 
   app.use('/auth', require('./auth'));
   
