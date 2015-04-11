@@ -41,9 +41,8 @@
         <div class="profile-nav alt">
             <section class="panel">
                 <div class="user-heading alt clock-row terques-bg">
-                    <h1>December 14</h1>
-                    <p class="text-left">2014, Friday</p>
-                    <p class="text-left">7:53 PM</p>
+                    <h1>{{timeDate.date}}</h1>
+                    <p class="text-left">{{timeDate.year}}, {{timeDate.day}}</p>
                 </div>
                 <ul id="clock">
                     <li id="sec"></li>
@@ -52,30 +51,7 @@
                 </ul>
 
                 <ul class="clock-category">
-                    <li>
-                        <a href="#" class="active">
-                            <i class="ico-clock2"></i>
-                            <span>Clock</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="ico-alarm2 "></i>
-                            <span>Alarm</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="ico-stopwatch"></i>
-                            <span>Stop watch</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class=" ico-clock2 "></i>
-                            <span>Timer</span>
-                        </a>
-                    </li>
+                    <p class="text-center clock-time">{{timeDate.time}}</p>
                 </ul>
 
             </section>

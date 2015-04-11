@@ -18,6 +18,18 @@ angular.module('healthsocialDevApp')
       }); 
     });
 
+    $scope.timeDate = {
+      date: day.format('MMMM D'),
+      year: day.format('YYYY'),
+      day: day.format('dddd'),
+      time: moment().format('h:mm:ss A')
+    };
+
+    var timer = setInterval(function () {
+      $scope.timeDate.time = moment().format('h:mm:ss A');
+      $scope.$apply();
+    }, 1000);
+
     $scope.addThing = function() {
       if($scope.newThing === '') {
         return;
