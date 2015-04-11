@@ -6,7 +6,24 @@
 <section class="wrapper">
 
 <div class="row">
-  <div class="col-md-4" ng-repeat="user in users | orderBy:'name'">
+  <div class="col-md-12"> 
+    <section class="panel">
+      <div class="panel-body">
+        <div class="compose-mail community-search">
+          <form role="form-horizontal" method="post">
+            <input type="text" class="form-control community-search-input" placeholder="Search User" ng-model="usersSearchText">
+          </form>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12" ng-if="filteredUsers.length === 0">
+    <h4>No users matched for "{{ usersSearchText }}".</h4>
+  </div>
+  <div class="col-md-4" ng-repeat="user in filteredUsers = (users | filter:usersSearchText) | orderBy:'name'">
     <section class="panel">
       <div class="user-container twt-feed">
         <div class="user-background" style="background-image: url('{{user.facebook_cover_photo}}')"></div>
