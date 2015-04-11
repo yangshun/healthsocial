@@ -2,11 +2,19 @@
 
 angular.module('healthsocialDevApp')
   .controller('DashboardCtrl', function ($scope, $http, socket) {
-    $scope.awesomeThings = [];
+ 
+    $scope.weatherData = [];
+    $http.get('/weather').success(function (data) {
+      
+      var day = moment();
+      var weatherDay = ['Today', 'Tomorrow', moment().weekday(2).format('ddd'), moment().weekday(3).format('ddd'), moment().weekday(4).format('ddd'), moment().weekday(5).format('ddd'), moment().weekday(6).format('ddd')];
+      var weatherColors = ['muted', 'primary', 'danger', 'info', 'success', 'warning', 'muted'];
+      $scope.weatherData = data;
 
-    $http.get('/api/things').success(function(awesomeThings) {
-      $scope.awesomeThings = awesomeThings;
-      socket.syncUpdates('thing', $scope.awesomeThings);
+      $scope.weatherData.forEach(function (day, index) {
+        day.color = weatherColors[index];
+        day.dayName = weatherDay[index];
+      }); 
     });
 
     $scope.addThing = function() {

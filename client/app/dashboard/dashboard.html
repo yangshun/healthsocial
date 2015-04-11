@@ -18,41 +18,16 @@
             <div class="panel-body">
                 <div class="row weather-full-info">
                     <div class="col-md-3 today-status">
-                        <h1>Today</h1>
-                        <i class=" ico-cloudy "></i>
-                        <div class="degree">37</div>
+                        <h1>{{weatherData[0].dayName}}</h1>
+                        <i class="ico-{{weatherData[0].weather}}"></i>
+                        <div class="degree">{{weatherData[0].temp}}</div>
                     </div>
                     <div class="col-md-9">
                         <ul>
-                            <li>
-                                <h2>Tomorrow</h2>
-                                <i class=" ico-cloudy text-primary"></i>
-                                <div class="statistics">32</div>
-                            </li>
-                            <li>
-                                <h2>Mon</h2>
-                                <i class=" ico-rainy2 text-danger"></i>
-                                <div class="statistics">40</div>
-                            </li>
-                            <li>
-                                <h2>Tue</h2>
-                                <i class=" ico-lightning3 text-info"></i>
-                                <div class="statistics">25</div>
-                            </li>
-                            <li>
-                                <h2>Wed</h2>
-                                <i class=" ico-sun3 text-success"></i>
-                                <div class="statistics">37</div>
-                            </li>
-                            <li>
-                                <h2>Thu</h2>
-                                <i class=" ico-snowy3 text-warning"></i>
-                                <div class="statistics">15</div>
-                            </li>
-                            <li>
-                                <h2>Fri</h2>
-                                <i class=" ico-cloudy "></i>
-                                <div class="statistics">21</div>
+                            <li ng-repeat="day in weatherData.slice(1)">
+                                <h2>{{day.dayName}}</h2>
+                                <i class="ico-{{day.weather}} text-{{day.color}}"></i>
+                                <div class="statistics">{{day.temp}}</div>
                             </li>
                         </ul>
                     </div>
