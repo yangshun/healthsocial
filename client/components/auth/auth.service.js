@@ -103,6 +103,12 @@ angular.module('healthsocialDevApp')
         return currentUser;
       },
 
+      getCurrentUserStats: function () {
+        return allUsers.filter(function (user) {
+          return currentUser._id === user._id;
+        })[0];
+      },
+
       getAllUsers: function (callback) {
         var cb = callback || angular.noop;
         var deferred = $q.defer();
@@ -152,6 +158,7 @@ angular.module('healthsocialDevApp')
             });
 
           });
+
           deferred.resolve(allUsers);
           return cb();
         }).
