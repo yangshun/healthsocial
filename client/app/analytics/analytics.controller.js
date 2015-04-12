@@ -13,8 +13,6 @@ angular.module('healthsocialDevApp')
       setTimeout(draw, 0);
     });
 
-    Chart.defaults.global.responsive = true;
-
     $scope.$watchCollection('selectedUsers', function () {
         if (!$scope.selectedUsers) {
             return;
