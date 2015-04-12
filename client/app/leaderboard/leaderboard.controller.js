@@ -5,4 +5,6 @@ angular.module('healthsocialDevApp')
     Auth.getAllUsers().then(function (data) {
       $scope.users = data;
     });
+
+    $scope.timePeriod = '3';
   });
