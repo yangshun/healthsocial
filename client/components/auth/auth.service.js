@@ -112,33 +112,45 @@ angular.module('healthsocialDevApp')
           return deferred.promise;
         }
 
+        function averageAcrossDays (log, field, days) {
+          var total = log.slice(-days).reduce(function (a, b) {
+            return a + b[field];
+          }, 0);
+          return Math.round(total / days);
+        }
+
         $http.get('/api/users').success(function (users) {
           console.log('Fetching all users data');
           allUsers = users;
           allUsers.forEach(function (user) {
-            var totalCalories = user.activity_log.reduce(function (a, b) {
-              return a + b.calories;
-            }, 0);
-            user.average_activity = Math.round(totalCalories / user.activity_log.length);
+
+            user.average_activity_3 = averageAcrossDays(user.activity_log, 'calories', 3);
+            user.average_activity_week = averageAcrossDays(user.activity_log, 'calories', 7);
+            user.average_activity_month = averageAcrossDays(user.activity_log, 'calories', 30);
+            user.average_activity = averageAcrossDays(user.activity_log, 'calories', user.activity_log.length);            
+            
             user.activity_log.forEach(function (item) {
               item.date = item.date.split('T')[0];
-            })
+            });
 
-            var totalWeight = user.weight_log.reduce(function (a, b) {
-              return a + b.kilograms;
-            }, 0);
-            user.average_weight = Math.round(totalWeight / user.weight_log.length);
+            user.average_weight_3 = averageAcrossDays(user.weight_log, 'kilograms', 3);
+            user.average_weight_week = averageAcrossDays(user.weight_log, 'kilograms', 7);
+            user.average_weight_month = averageAcrossDays(user.weight_log, 'kilograms', 30);
+            user.average_weight = averageAcrossDays(user.weight_log, 'kilograms', user.weight_log.length);            
+            
             user.weight_log.forEach(function (item) {
               item.date = item.date.split('T')[0];
-            })
+            });
 
-            var totalSleep = user.sleep_log.reduce(function (a, b) {
-              return a + b.minutes;
-            }, 0);
-            user.average_sleep = Math.round(totalSleep / user.sleep_log.length);
-            user.sleep_log.forEach(function (item) {
+            user.average_sleep_3 = averageAcrossDays(user.sleep_log, 'minutes', 3);
+            user.average_sleep_week = averageAcrossDays(user.sleep_log, 'minutes', 7);
+            user.average_sleep_month = averageAcrossDays(user.sleep_log, 'minutes', 30);
+            user.average_sleep = averageAcrossDays(user.sleep_log, 'minutes', user.sleep_log.length);            
+            
+            user.weight_log.forEach(function (item) {
               item.date = item.date.split('T')[0];
-            })
+            });
+
           });
           deferred.resolve(allUsers);
           return cb();
