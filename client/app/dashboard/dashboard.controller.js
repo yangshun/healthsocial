@@ -64,12 +64,19 @@ angular.module('healthsocialDevApp')
       var lineChart = new Chart(document.getElementById(elId).getContext('2d')).Line(chartData);
     }
 
-    Auth.getAllUsers().then(function () {
-      $scope.currentUserStats = Auth.getCurrentUserStats();
+    Auth.getAllUsers().then(function (data) {
 
-      ['sleep', 'activity', 'weight'].forEach(function (type) {
-        renderChart(type, 'dashboard-' + type + '-chart', typeValueMapping[type].color, $scope.currentUserStats[type + '_log'].slice(-7));
+      Auth.getCurrentUser().$promise.then(function (user) {
+        $scope.currentUser = user;
+        $scope.currentUserStats = data.filter(function (user) {
+          return $scope.currentUser._id === user._id;
+        })[0];
+
+        ['sleep', 'activity', 'weight'].forEach(function (type) {
+          renderChart(type, 'dashboard-' + type + '-chart', typeValueMapping[type].color, $scope.currentUserStats[type + '_log'].slice(-7));
+        });
       });
+      
     });
 
     setTimeout(function () {
