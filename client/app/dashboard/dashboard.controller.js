@@ -8,7 +8,7 @@ angular.module('healthsocialDevApp')
 
     $http.get('/weather').success(function (data) {
       
-      var weatherDay = ['Today', 'Tomorrow', day.weekday(2).format('ddd'), day.weekday(3).format('ddd'), day.weekday(4).format('ddd'), day.weekday(5).format('ddd'), day.weekday(6).format('ddd')];
+      var weatherDay = ['Today', 'Tomorrow', day.add(2, 'day').format('ddd'), day.add(3, 'day').format('ddd'), day.add(4, 'day').format('ddd'), day.add(5, 'day').format('ddd'), day.add(6, 'day').format('ddd')];
       var weatherColors = ['muted', 'primary', 'danger', 'info', 'success', 'warning', 'muted'];
       $scope.weatherData = data;
 
