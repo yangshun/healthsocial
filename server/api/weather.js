@@ -29,7 +29,7 @@ function getTypeOfWeather (weather) {
 
 router.get('/', function (req, res) {
   request(WEATHER_API, function (error, response, body) {
-    if (!error && response.statusCode == 200) { 
+    if (!error && response.statusCode === 200) { 
       var data = JSON.parse(body).list;
       data.forEach(function (day) {
         day.temp = parseInt(day.temp.day * 10) / 10;
