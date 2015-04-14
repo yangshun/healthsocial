@@ -4,6 +4,7 @@ var User = require('./user.model');
 var passport = require('passport');
 var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
+var _ = require('lodash');
 
 var validationError = function(res, err) {
   return res.json(422, err);
@@ -22,6 +23,15 @@ exports.index = function(req, res) {
   .populate('weight_log', 'kilograms date')
   .exec(function (err, users) {
     if(err) return res.send(500, err);
+    var currentDate = new Date();
+    var fields = ['sleep', 'activity', 'weight'];
+    users.forEach(function (user) {
+      fields.forEach(function (field) {
+        user[field + '_log'] = user[field + '_log'].filter(function (item) {
+          return item.date <= currentDate;
+        });
+      });
+    });
     res.json(200, users);
   });
 };
