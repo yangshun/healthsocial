@@ -8,7 +8,8 @@ var PostSchema = new Schema({
   created_date: { type: Date, default: Date.now },
   content: String,
   info: String,
-  active: Boolean
+  active: Boolean,
+  image_url: String
 });
 
 module.exports = mongoose.model('Post', PostSchema);
