@@ -16,10 +16,15 @@
         <div class="panel-body">
           <div class="compose-mail">
             <form role="form-horizontal" method="post">
-              <input type="text" class="form-control" placeholder="What's on your mind?" ng-model="newPost">
+
+              <div class="compose-editor">
+                <textarea type="text" class="form-control" placeholder="What's on your mind?" ng-model="newPost" rows="3"></textarea>
+              </div>
               <div class="compose-btn pull-right">
+                <button class="btn btn-warning" ng-click="showFilePicker()"><i class="fa fa-photo"></i> Add Image</button>
                 <button class="btn btn-primary" ng-click="addPost()"><i class="fa fa-check"></i> Post</button>
               </div>
+              <img ng-show="imageUrl" ng-src="{{imageUrl}}" height="64" class="pull-right img-rounded" style="margin-right: 10px;">
             </form>
           </div>
         </div>

@@ -13,7 +13,7 @@ angular.module('healthsocialDevApp').controller('NavCtrl', function ($scope, $lo
       link: '/analytics'
     },
     {
-      title: 'Activity Feed',
+      title: 'News Feed',
       icon: 'fa-newspaper-o',
       link: '/feed'
     },
