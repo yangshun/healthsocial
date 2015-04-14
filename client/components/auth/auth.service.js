@@ -153,7 +153,7 @@ angular.module('healthsocialDevApp')
             user.average_sleep_month = averageAcrossDays(user.sleep_log, 'minutes', 30);
             user.average_sleep = averageAcrossDays(user.sleep_log, 'minutes', user.sleep_log.length);            
             
-            user.weight_log.forEach(function (item) {
+            user.sleep_log.forEach(function (item) {
               item.date = item.date.split('T')[0];
             });
 
