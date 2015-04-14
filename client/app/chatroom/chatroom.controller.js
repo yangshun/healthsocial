@@ -5,18 +5,19 @@ angular.module('healthsocialDevApp')
     $scope.awesomemessages = [];
 
     function scrollToBottomOfChat () {
-      $('.conversation-list').scrollTo('100%', '100%', {
-        easing: 'swing'
-      });
+      setTimeout(function () {
+        $('.conversation-list').scrollTo('100%', '100%', {
+          easing: 'swing'
+        });
+      }, 0);
     }
 
     $http.get('/api/messages').success(function(messages) {
       $scope.messages = messages;
+      scrollToBottomOfChat();
+
       socket.syncUpdates('message', $scope.messages, function () {
-        console.log($scope.messages);
-        setTimeout(function () {
-          scrollToBottomOfChat();
-        }, 0);
+        scrollToBottomOfChat();
       });
     });
 
