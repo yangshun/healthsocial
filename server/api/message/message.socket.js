@@ -16,7 +16,12 @@ exports.register = function(socket) {
 }
 
 function onSave(socket, doc, cb) {
-  socket.emit('message:save', doc);
+  doc.populate({
+    path: '_creator',
+    select: 'name facebook_id'
+  }, function (err, msg) {
+    socket.emit('message:save', msg);
+  });
 }
 
 function onRemove(socket, doc, cb) {
