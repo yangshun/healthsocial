@@ -93,11 +93,11 @@
     <div class="row">
       <div class="col-sm-12">
         <section class="panel">
-          <header class="panel-heading">Sleep - Bar Chart</header>
+          <header class="panel-heading"><i class="fa fa-bed"></i> Sleep ({{dateRange}})</header>
           <div class="panel-body">
             <div class="chartJS">
-              <canvas id="bar-chart-js" height="250" width="800" ></canvas>
-            </div>
+              <canvas id="sleep-chart" height="250" width="800"></canvas>
+             </div>
           </div>
         </section>
       </div>
@@ -106,10 +106,23 @@
     <div class="row">
       <div class="col-sm-12">
         <section class="panel">
-          <header class="panel-heading">Sleep - Line Chart</header>
+          <header class="panel-heading"><i class="fa fa-heartbeat"></i> Activity ({{dateRange}})</header>
           <div class="panel-body">
             <div class="chartJS">
-              <canvas id="line-chart-js" height="250" width="800" ></canvas>
+              <canvas id="activity-chart" height="250" width="800"></canvas>
+             </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <section class="panel">
+          <header class="panel-heading"><i class="fa fa-cutlery"></i> Weight ({{dateRange}})</header>
+          <div class="panel-body">
+            <div class="chartJS">
+              <canvas id="weight-chart" height="250" width="800"></canvas>
              </div>
           </div>
         </section>

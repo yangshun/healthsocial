@@ -44,112 +44,127 @@ angular.module('healthsocialDevApp')
         var endDate = $scope.dateRange.split(' - ')[1];
         draw($scope.selectedUsers, startDate, endDate, $scope.granularity);
     }
-    
-});
 
-var barChart;
-var lineChart;
+    var sleepChart;
+    var activityChart;
+    var weightChart;
 
-function draw (selectedUsers, startDate, endDate, granularity) {
-    if (!selectedUsers || selectedUsers.length === 0) {
-        return;
-    }
-    console.log(selectedUsers);
-    var startDate = moment(startDate, 'DD/MM/YYYY').format('YYYY-MM-DD');
-    var startIndex = 0;
-    selectedUsers[0].sleep_log.every(function (item, index) {
-        if (item.date === startDate) {
-            startIndex = index;
-            return false;    
-        } else {
-            return true;
+    var chartMapping = {
+        sleep: {
+            unit: 'minutes',
+            chart: sleepChart,
+        },
+        activity: {
+            unit: 'calories',
+            chart: activityChart
+        },
+        weight: {
+            unit: 'kilograms',
+            chart: weightChart
         }
-    });
-
-    var endDate = moment(endDate, 'DD/MM/YYYY').format('YYYY-MM-DD');
-    var endIndex = 0;
-    selectedUsers[0].sleep_log.every(function (item, index) {
-        if (item.date === endDate) {
-            endIndex = index;
-            return false;    
-        } else {
-            return true;
-        }
-    });
-
-    var chartData = {
-        labels: selectedUsers[0].sleep_log.slice(startIndex, endIndex+1).map(function (dataPoint) {
-            return dataPoint.date;
-        }),
-        datasets: []
     };
 
-    selectedUsers.forEach(function (user) {
-        chartData.datasets.push({
-            fillColor: user.color,
-            strokeColor: user.color,
-            pointColor: user.color,
-            pointStrokeColor: '#fff',
-            data: user.sleep_log.slice(startIndex, endIndex+1).map(function (dataPoint) {
-                return dataPoint.minutes;
-            })
+    function draw (selectedUsers, startDate, endDate, granularity) {
+        if (!selectedUsers || selectedUsers.length === 0) {
+            return;
+        }
+
+        var startDate = moment(startDate, 'DD/MM/YYYY').format('YYYY-MM-DD');
+        var startIndex = 0;
+
+
+        selectedUsers[0].sleep_log.every(function (item, index) {
+            if (item.date === startDate) {
+                startIndex = index;
+                return false;    
+            } else {
+                return true;
+            }
         });
-    });
 
-    if (barChart) {
-        barChart.destroy();
+        var endDate = moment(endDate, 'DD/MM/YYYY').format('YYYY-MM-DD');
+        var endIndex = 0;
+        selectedUsers[0].sleep_log.every(function (item, index) {
+            if (item.date === endDate) {
+                endIndex = index;
+                return false;    
+            } else {
+                return true;
+            }
+        });
+
+        ['sleep', 'activity', 'weight'].forEach(function (type) {
+            var chartData = {
+                labels: selectedUsers[0][type + '_log'].slice(startIndex, endIndex+1).map(function (dataPoint) {
+                    return dataPoint.date;
+                }),
+                datasets: []
+            };
+
+            selectedUsers.forEach(function (user) {
+                chartData.datasets.push({
+                    fillColor: user.color,
+                    strokeColor: user.color,
+                    pointColor: user.color,
+                    pointStrokeColor: '#fff',
+                    data: user[type + '_log'].slice(startIndex, endIndex+1).map(function (dataPoint) {
+                        return dataPoint[chartMapping[type].unit];
+                    })
+                });
+            });
+            var chart = chartMapping[type].chart;
+
+            if (chart) {
+                chart.destroy();
+            }
+            chartData.datasets.forEach(function (dataset) {
+                dataset.fillColor = 'transparent';
+            });
+            chartMapping[type].chart = new Chart(document.getElementById(type + '-chart').getContext('2d')).Line(chartData);
+        });
+
+        var pieData = [
+            {
+                value: 30,
+                color:"#E67A77"
+            },
+            {
+                value : 50,
+                color : "#D9DD81"
+            },
+            {
+                value : 100,
+                color : "#79D1CF"
+            }
+
+        ];
+
+        var myPie = new Chart(document.getElementById("pie-chart-js").getContext("2d")).Pie(pieData);
+
+        var donutData = [
+            {
+                value: 30,
+                color:"#E67A77"
+            },
+            {
+                value : 50,
+                color : "#D9DD81"
+            },
+            {
+                value : 100,
+                color : "#79D1CF"
+            },
+            {
+                value : 40,
+                color : "#95D7BB"
+            },
+            {
+                value : 120,
+                color : "#4D5360"
+            }
+
+        ]
+        var myDonut = new Chart(document.getElementById("donut-chart-js").getContext("2d")).Doughnut(donutData);
     }
-    barChart = new Chart(document.getElementById("bar-chart-js").getContext("2d")).Bar(chartData);
 
-    if (lineChart) {
-        lineChart.destroy();
-    }
-    chartData.datasets.forEach(function (dataset) {
-        dataset.fillColor = 'transparent';
-    })
-    lineChart = new Chart(document.getElementById("line-chart-js").getContext("2d")).Line(chartData);
-
-
-    var pieData = [
-        {
-            value: 30,
-            color:"#E67A77"
-        },
-        {
-            value : 50,
-            color : "#D9DD81"
-        },
-        {
-            value : 100,
-            color : "#79D1CF"
-        }
-
-    ];
-
-    var myPie = new Chart(document.getElementById("pie-chart-js").getContext("2d")).Pie(pieData);
-
-    var donutData = [
-        {
-            value: 30,
-            color:"#E67A77"
-        },
-        {
-            value : 50,
-            color : "#D9DD81"
-        },
-        {
-            value : 100,
-            color : "#79D1CF"
-        },
-        {
-            value : 40,
-            color : "#95D7BB"
-        },
-        {
-            value : 120,
-            color : "#4D5360"
-        }
-
-    ]
-    var myDonut = new Chart(document.getElementById("donut-chart-js").getContext("2d")).Doughnut(donutData);
-}
+});
