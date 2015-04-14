@@ -27,12 +27,12 @@ angular.module('healthsocialDevApp')
         updateCharts();        
     });
 
-    $scope.dateRange = moment().subtract(28, 'days').format('DD/MM/YYYY') + ' - ' + moment().format('DD/MM/YYYY');
+    $scope.dateRange = moment().subtract(28, 'days').format('DD/MM/YYYY') + ' - ' + moment().subtract(1, 'day').format('DD/MM/YYYY');
     setTimeout(function () {
         $('input[name="daterange"]').daterangepicker({
             format: 'DD/MM/YYYY',
             minDate: '01/01/2015',
-            maxDate: moment()
+            maxDate: moment().subtract(1, 'day').format('DD/MM/YYYY')
         });
         $('input[name="daterange"]').on('apply.daterangepicker', function (ev, picker) {
             updateCharts();
