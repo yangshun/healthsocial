@@ -105,9 +105,18 @@ function nav () {
         $(".leftside-navigation").scrollTo("+=" + Math.abs(diff), 500);
     });
 
-
-
     $('.sidebar-toggle-box .fa-bars').click(function (e) {
+
+      // Basic debounce of resize function so it doesn't hurt performance when resizing browser.
+      setTimeout(function () {
+        _.each(Chart.instances, function (instance) {
+          // If the responsive flag is set in the chart instance config
+          // Cascade the resize event down to the chart.
+          if (instance.options.responsive) {
+            instance.resize(instance.render, true);
+          }
+        });
+      }, 300);
 
       $(".leftside-navigation").niceScroll({
         cursorcolor: "#1FB5AD",

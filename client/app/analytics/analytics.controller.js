@@ -158,7 +158,6 @@ angular.module('healthsocialDevApp')
             });
             var chart = chartMapping[type].chart;
 
-
             if (chart) {
                 chart.destroy();
             }
