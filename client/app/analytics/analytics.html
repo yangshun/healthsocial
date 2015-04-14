@@ -97,7 +97,29 @@
           <div class="panel-body">
             <div class="chartJS">
               <canvas id="sleep-chart" height="250" width="800"></canvas>
-             </div>
+              <table ng-show="selectedUsers.length" class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Mean</th>
+                    <th>Median</th>
+                    <th>Min</th>
+                    <th>Max</th>
+                    <th>S.D.</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="user in selectedUsers">
+                    <td><span class="fa fa-circle" style="color: {{user.color}}"></span> &nbsp; {{user.name}}</td>
+                    <td>{{user.sleep_stats.mean}}</td>
+                    <td>{{user.sleep_stats.median}}</td>
+                    <td>{{user.sleep_stats.min}}</td>
+                    <td>{{user.sleep_stats.max}}</td>
+                    <td>{{user.sleep_stats.standardDev}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </section>
       </div>
@@ -110,7 +132,29 @@
           <div class="panel-body">
             <div class="chartJS">
               <canvas id="activity-chart" height="250" width="800"></canvas>
-             </div>
+              <table ng-show="selectedUsers.length" class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Mean</th>
+                    <th>Median</th>
+                    <th>Min</th>
+                    <th>Max</th>
+                    <th>S.D.</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="user in selectedUsers">
+                    <td><span class="fa fa-circle" style="color: {{user.color}}"></span> &nbsp; {{user.name}}</td>
+                    <td>{{user.activity_stats.mean}}</td>
+                    <td>{{user.activity_stats.median}}</td>
+                    <td>{{user.activity_stats.min}}</td>
+                    <td>{{user.activity_stats.max}}</td>
+                    <td>{{user.activity_stats.standardDev}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </section>
       </div>
@@ -123,7 +167,29 @@
           <div class="panel-body">
             <div class="chartJS">
               <canvas id="weight-chart" height="250" width="800"></canvas>
-             </div>
+              <table ng-show="selectedUsers.length" class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Mean</th>
+                    <th>Median</th>
+                    <th>Min</th>
+                    <th>Max</th>
+                    <th>S.D.</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="user in selectedUsers">
+                    <td><span class="fa fa-circle" style="color: {{user.color}}"></span> &nbsp; {{user.name}}</td>
+                    <td>{{user.weight_stats.mean}}</td>
+                    <td>{{user.weight_stats.median}}</td>
+                    <td>{{user.weight_stats.min}}</td>
+                    <td>{{user.weight_stats.max}}</td>
+                    <td>{{user.weight_stats.standardDev}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </section>
       </div>
@@ -146,6 +212,7 @@
           <div class="panel-body">
             <div class="chartJS">
               <canvas id="donut-chart-js" height="250" width="800" ></canvas>
+
             </div>
           </div>
         </section>

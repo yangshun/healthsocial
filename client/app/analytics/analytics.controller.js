@@ -27,7 +27,7 @@ angular.module('healthsocialDevApp')
         updateCharts();        
     });
 
-    $scope.dateRange = moment().subtract(28, 'days').format('DD/MM/YYYY') + ' - ' + moment().subtract(1, 'day').format('DD/MM/YYYY');
+    $scope.dateRange = moment().subtract(14, 'days').format('DD/MM/YYYY') + ' - ' + moment().subtract(1, 'day').format('DD/MM/YYYY');
     setTimeout(function () {
         $('input[name="daterange"]').daterangepicker({
             format: 'DD/MM/YYYY',
@@ -102,17 +102,62 @@ angular.module('healthsocialDevApp')
             };
 
             selectedUsers.forEach(function (user) {
+                var dataSet = user[type + '_log'].slice(startIndex, endIndex+1).map(function (dataPoint) {
+                    return dataPoint[chartMapping[type].unit];
+                });
                 chartData.datasets.push({
                     fillColor: user.color,
                     strokeColor: user.color,
                     pointColor: user.color,
                     pointStrokeColor: '#fff',
-                    data: user[type + '_log'].slice(startIndex, endIndex+1).map(function (dataPoint) {
-                        return dataPoint[chartMapping[type].unit];
-                    })
+                    data: dataSet
                 });
+
+                function median (values) {
+                    var clone = values.slice();
+                    clone.sort(function(a, b) { 
+                        return a - b; 
+                    });
+                    var half = Math.floor(clone.length/2);
+                    if (clone.length % 2) {
+                        return clone[half];
+                    } else {
+                        return (clone[half-1] + clone[half]) / 2.0;
+                    }
+                }
+                function mean (values) {
+                    var total = values.reduce(function (previousValue, currentValue) {
+                        return previousValue + currentValue;
+                    });
+                    return total/values.length;
+                }
+                function standardDev (values) {
+                    var avg = mean(values);
+                  
+                    var squareDiffs = values.map(function(value){
+                        var diff = value - avg;
+                        var sqrDiff = diff * diff;
+                        return sqrDiff;
+                    });
+                  
+                    var avgSquareDiff = mean(squareDiffs);
+                    return Math.sqrt(avgSquareDiff);
+                }
+                function round2dp (value) {
+                    return parseInt(value * 100)/100;
+                }
+
+                var statsObj = {
+                    mean: round2dp(mean(dataSet)),
+                    median: median(dataSet),
+                    min: Math.min.apply(null, dataSet),
+                    max: Math.max.apply(null, dataSet),
+                    standardDev: round2dp(standardDev(dataSet))
+                };
+                user[type + '_stats'] = statsObj;
             });
             var chart = chartMapping[type].chart;
+
 
             if (chart) {
                 chart.destroy();
