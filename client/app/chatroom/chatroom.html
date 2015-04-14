@@ -19,6 +19,7 @@
                 <li class="clearfix" ng-class="{odd: (getCurrentUser()._id === message._creator._id)}" ng-repeat="message in messages.slice()">
                   <div class="chat-avatar">
                     <img class="chat-thumbnail" ng-src="{{message._creator.facebook_id | fbProfilePicture}}" alt="male">
+                    <i>{{message.created_date | date:'hh:mm'}}</i>
                   </div>
                   <div class="conversation-text">
                     <div class="ctext-wrap">
@@ -26,7 +27,6 @@
                       <p>
                         {{message.content}}
                       </p>
-                      <i>{{message.date | date:'h:mma'}}</i>
                     </div>
                   </div>
                 </li>
