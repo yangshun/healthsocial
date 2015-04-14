@@ -149,9 +149,9 @@ angular.module('healthsocialDevApp')
 
                 var statsObj = {
                     mean: round2dp(mean(dataSet)),
-                    median: median(dataSet),
-                    min: Math.min.apply(null, dataSet),
-                    max: Math.max.apply(null, dataSet),
+                    median: round2dp(median(dataSet)),
+                    min: round2dp(Math.min.apply(null, dataSet)),
+                    max: round2dp(Math.max.apply(null, dataSet)),
                     standardDev: round2dp(standardDev(dataSet))
                 };
                 user[type + '_stats'] = statsObj;
