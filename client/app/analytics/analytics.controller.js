@@ -157,6 +157,16 @@ angular.module('healthsocialDevApp')
 
     $scope.typeValueMapping = typeValueMapping;
 
+    function convertHex(hex, opacity) {
+        hex = hex.replace('#','');
+        var r = parseInt(hex.substring(0,2), 16);
+        var g = parseInt(hex.substring(2,4), 16);
+        var b = parseInt(hex.substring(4,6), 16);
+        var result = 'rgba('+r+','+g+','+b+','+opacity+')';
+        return result;
+    }
+
+
     function draw (selectedUsers, startDate, endDate, granularity, chartType) {
         if (!selectedUsers || selectedUsers.length === 0) {
             return;
@@ -215,9 +225,8 @@ angular.module('healthsocialDevApp')
                         return index % 7 === 0;
                     });
                 }
-
                 chartData.datasets.push({
-                    fillColor: user.color,
+                    fillColor: convertHex(user.color, 0.25),
                     strokeColor: user.color,
                     pointColor: user.color,
                     pointStrokeColor: '#fff',
@@ -273,10 +282,6 @@ angular.module('healthsocialDevApp')
             if (chartObj) {
                 chartObj.destroy();
             }
-
-            chartData.datasets.forEach(function (dataset) {
-                dataset.fillColor = 'transparent';
-            });
             
             var thisChart = new Chart(document.getElementById(type + '-chart').getContext('2d'));
             switch (chartType) {
@@ -316,7 +321,7 @@ angular.module('healthsocialDevApp')
                     }
                     var max = Math.max.apply(null, plottingData);
                     chartData.datasets.push({
-                        fillColor: typeValueMapping[type].color,
+                        fillColor: convertHex(typeValueMapping[type].color, 0.3),
                         strokeColor: typeValueMapping[type].color,
                         pointColor: typeValueMapping[type].color,
                         pointStrokeColor: '#fff',
@@ -332,10 +337,6 @@ angular.module('healthsocialDevApp')
                 if (chartObj) {
                     chartObj.destroy();
                 }
-
-                chartData.datasets.forEach(function (dataset) {
-                    dataset.fillColor = 'transparent';
-                });
                 
                 var thisChart = new Chart(document.getElementById(combinedType + '-chart').getContext('2d'));
                 var config = { scaleBeginAtZero: false };
