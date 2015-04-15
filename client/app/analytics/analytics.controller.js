@@ -26,16 +26,60 @@ angular.module('healthsocialDevApp')
         updateCharts();
     }
 
-    $scope.downloadData = function () {
-        var data = $scope.selectedUsers.slice();
-        data.forEach(function (user) {
+    function getCSVFormat (selectedUsers) {
+        var csvData = [];
+        var header = ['Name', 'Date', 'Sleep', 'Activity', 'Weight'];
+        csvData.push(header);
+
+        selectedUsers.forEach(function (user) {
+            var len = user.sleep_log.length;
+            for (var i = 0; i < len; i++) {
+                var row = [user.name];
+                row.push(user.sleep_log[i].date);
+                row.push(user.sleep_log[i].minutes);
+                row.push(user.activity_log[i].calories);
+                row.push(user.weight_log[i].kilograms);
+                csvData.push(row);
+            }
+        });
+
+        var str = '';
+     
+        for (var i = 0; i < csvData.length; i++) {
+            var line = '';
+            for (var index in csvData[i]) {
+                if (line != '') line += ','
+                line += csvData[i][index];
+            }
+     
+            str += line + '\r\n';
+        }
+        return str;
+    }
+
+    function getJSONFormat (selectedUsers) {
+        selectedUsers.forEach(function (user) {
             ['sleep', 'activity', 'weight'].forEach(function (type) {
                 user[type + '_log'].forEach(function (dataPoint) {
                     delete dataPoint._id;
                 });
             });
         });
-        var popup = window.open('data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data)));
+        return JSON.stringify(selectedUsers);
+    }
+
+    $scope.downloadData = function (format) {
+        var data = $scope.selectedUsers.slice();
+        switch (format) {
+            case 'json':
+                data = getJSONFormat(data);
+                break;
+            case 'csv':
+            default:
+                data = getCSVFormat(data);
+                break;
+        }
+        var popup = window.open('data:text/json;charset=utf-8,' + encodeURIComponent(data));
     }
 
     $scope.dateRange = moment().subtract(14, 'days').format('DD/MM/YYYY') + ' - ' + moment().subtract(1, 'day').format('DD/MM/YYYY');

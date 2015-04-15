@@ -105,10 +105,11 @@
               </div>
             </div>
 
-            <div class="form-group">
-              <label class="control-label col-md-2">Data</label>
+            <div class="form-group" ng-show="selectedUsers.length">
+              <label class="control-label col-md-2">Export Data</label>
               <div class="col-md-10">
-                <button ng-click="downloadData()" class="btn btn-success" id="download-data" download="data.json">Download data for selected users</button>
+                <button ng-click="downloadData('json')" class="btn btn-info">JSON Format</button>
+                <button ng-click="downloadData('csv')" class="btn btn-warning">CSV Format</button>
               </div>
             </div>
           </form>
