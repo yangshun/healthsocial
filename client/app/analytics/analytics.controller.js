@@ -7,6 +7,7 @@ angular.module('healthsocialDevApp')
   .controller('AnalyticsCtrl', function ($scope, Auth) {
     $scope.selectedUsers = [];
     $scope.granularity = 'day';
+    $scope.chartType = 'line';
 
     Auth.getAllUsers().then(function (data) {
       $scope.users = data;
@@ -18,6 +19,10 @@ angular.module('healthsocialDevApp')
     });
 
     $scope.granularityChange = function () {
+        updateCharts();
+    }
+
+    $scope.chartTypeChange = function () {
         updateCharts();
     }
 
@@ -45,7 +50,7 @@ angular.module('healthsocialDevApp')
         });
         var startDate = $scope.dateRange.split(' - ')[0];
         var endDate = $scope.dateRange.split(' - ')[1];
-        draw($scope.selectedUsers, startDate, endDate, $scope.granularity);
+        draw($scope.selectedUsers, startDate, endDate, $scope.granularity, $scope.chartType);
     }
 
     var sleepChart;
@@ -67,14 +72,13 @@ angular.module('healthsocialDevApp')
         }
     };
 
-    function draw (selectedUsers, startDate, endDate, granularity) {
+    function draw (selectedUsers, startDate, endDate, granularity, chartType) {
         if (!selectedUsers || selectedUsers.length === 0) {
             return;
         }
 
         var startDate = moment(startDate, 'DD/MM/YYYY').format('YYYY-MM-DD');
         var startIndex = 0;
-
 
         selectedUsers[0].sleep_log.every(function (item, index) {
             if (item.date === startDate) {
@@ -177,15 +181,31 @@ angular.module('healthsocialDevApp')
                 };
                 user[type + '_stats'] = statsObj;
             });
-            var chart = chartMapping[type].chart;
 
-            if (chart) {
-                chart.destroy();
+            var chartObj = chartMapping[type].chart;
+            
+            if (chartObj) {
+                chartObj.destroy();
             }
-            chartData.datasets.forEach(function (dataset) {
-                dataset.fillColor = 'transparent';
-            });
-            chartMapping[type].chart = new Chart(document.getElementById(type + '-chart').getContext('2d')).Line(chartData);
+            // if (chartType === 'radar') {
+                chartData.datasets.forEach(function (dataset) {
+                    dataset.fillColor = 'transparent';
+                });
+            // }
+            
+            var thisChart = new Chart(document.getElementById(type + '-chart').getContext('2d'));
+            switch (chartType) {
+                case 'bar':
+                    chartObj = thisChart.Bar(chartData);
+                    break;
+                case 'line':
+                    chartObj = thisChart.Line(chartData);
+                    break;
+                case 'radar':
+                    chartObj = thisChart.Radar(chartData);
+                    break;
+            }
+            chartMapping[type].chart = chartObj;
         });
 
         var pieData = [
