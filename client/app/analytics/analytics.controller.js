@@ -1,6 +1,6 @@
 'use strict';
 
-var CHART_COLORS = ['#cb6077', '#d28b71', '#f4bc87', '#beb55b', '#7bbda4', '#8ab3b5', '#a89bb9', '#bb9584', 
+var CHART_COLORS = ['#A9D86E', '#FF6C60', '#FCB322', '#cb6077', '#7bbda4', '#d28b71', '#8ab3b5', '#f4bc87', '#a89bb9', '#beb55b', '#bb9584', 
                     '#210b10', '#341a10', '#723d0a', '#131207', '#13261f', '#192727', '#292332', '#291c17'];
 
 angular.module('healthsocialDevApp')
