@@ -56,6 +56,9 @@ angular.module('healthsocialDevApp')
     var sleepChart;
     var activityChart;
     var weightChart;
+    var sleepActivityChart;
+    var activityWeightChart;
+    var sleepWeightChart;
 
     var chartMapping = {
         sleep: {
@@ -69,8 +72,34 @@ angular.module('healthsocialDevApp')
         weight: {
             unit: 'kilograms',
             chart: weightChart
+        },
+        sleepactivity: {
+            chart: sleepActivityChart
+        },
+        activityweight: {
+            chart: activityWeightChart
+        },
+        sleepweight: {
+            chart: sleepWeightChart
         }
     };
+
+    var typeValueMapping = {
+        sleep: {
+            unit: 'minutes',
+            color: '#A9D86E'
+        },
+        activity: {
+            unit: 'calories',
+            color: '#FF6C60'
+        },
+        weight: {
+            unit: 'kilograms',
+            color: '#FCB322'
+        }
+    };
+
+    $scope.typeValueMapping = typeValueMapping;
 
     function draw (selectedUsers, startDate, endDate, granularity, chartType) {
         if (!selectedUsers || selectedUsers.length === 0) {
@@ -100,18 +129,19 @@ angular.module('healthsocialDevApp')
             }
         });
 
-        ['sleep', 'activity', 'weight'].forEach(function (type) {
-            var data = selectedUsers[0][type + '_log'].slice(startIndex, endIndex+1);
+        var data = selectedUsers[0]['sleep_log'].slice(startIndex, endIndex+1);
             
-            if (granularity === 'week') {
-                data = data.filter(function (dataPoint, index) {
-                    return index % 7 === 0;
-                });
-            }
-
-            var labels = data.map(function (dataPoint) {
-                return dataPoint.date;
+        if (granularity === 'week') {
+            data = data.filter(function (dataPoint, index) {
+                return index % 7 === 0;
             });
+        }
+
+        var labels = data.map(function (dataPoint) {
+            return dataPoint.date;
+        });
+
+        ['sleep', 'activity', 'weight'].forEach(function (type) {
 
             var chartData = {
                 labels: labels,
@@ -206,5 +236,67 @@ angular.module('healthsocialDevApp')
             }
             chartMapping[type].chart = chartObj;
         });
+
+        if (selectedUsers.length === 1) {
+            [['sleep', 'activity'], 
+            ['activity', 'weight'], 
+            ['sleep', 'weight']].forEach(function (pairs) {
+
+                var chartData = {
+                    labels: labels,
+                    datasets: []
+                };
+
+                pairs.forEach(function (type) {
+                    var dataSet = selectedUsers[0][type + '_log'].slice(startIndex, endIndex+1).map(function (dataPoint) {
+                        return dataPoint[chartMapping[type].unit];
+                    });
+
+                    var plottingData = dataSet;
+                    if (granularity === 'week') {
+                        plottingData = dataSet.filter(function (dataPoint, index) {
+                            return index % 7 === 0;
+                        });
+                    }
+                    var max = Math.max.apply(null, plottingData);
+                    chartData.datasets.push({
+                        fillColor: typeValueMapping[type].color,
+                        strokeColor: typeValueMapping[type].color,
+                        pointColor: typeValueMapping[type].color,
+                        pointStrokeColor: '#fff',
+                        data: plottingData.map(function (dataPoint) {
+                            return parseInt(dataPoint/max * 100)/100;
+                        })
+                    });
+                });
+                
+                var combinedType = pairs[0] + pairs[1];
+                var chartObj = chartMapping[combinedType].chart;
+            
+                if (chartObj) {
+                    chartObj.destroy();
+                }
+
+                chartData.datasets.forEach(function (dataset) {
+                    dataset.fillColor = 'transparent';
+                });
+                
+                var thisChart = new Chart(document.getElementById(combinedType + '-chart').getContext('2d'));
+                var config = { scaleBeginAtZero: false };
+                switch (chartType) {
+                    case 'bar':
+                        chartObj = thisChart.Bar(chartData, config);
+                        break;
+                    case 'line':
+                        chartObj = thisChart.Line(chartData, config);
+                        break;
+                    case 'radar':
+                        chartObj = thisChart.Radar(chartData, config);
+                        break;
+                }
+                chartMapping[combinedType].chart = chartObj;
+
+            });
+        }
     }
 });

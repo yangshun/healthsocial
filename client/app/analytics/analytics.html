@@ -227,6 +227,51 @@
         </section>
       </div>
     </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <section class="panel">
+          <header class="panel-heading"><i class="fa fa-circle" style="color: {{typeValueMapping['sleep'].color}}"></i> Sleep vs Activity <i class="fa fa-circle" style="color: {{typeValueMapping['activity'].color}}"></i> ({{dateRange}})</header>
+          <div class="panel-body">
+            <p ng-hide="selectedUsers.length">Select a user from the left</p>
+            <div class="chartJS">
+              <canvas id="sleepactivity-chart" height="250" width="800"></canvas>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <section class="panel">
+          <header class="panel-heading">
+            <i class="fa fa-circle" style="color: {{typeValueMapping['sleep'].color}}"></i> Activity vs Weight <i class="fa fa-circle" style="color: {{typeValueMapping['weight'].color}}"></i> ({{dateRange}})
+          </header>
+          <div class="panel-body">
+            <p ng-hide="selectedUsers.length">Select a user from the left</p>
+            <div class="chartJS">
+              <canvas id="activityweight-chart" height="250" width="800"></canvas>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <section class="panel">
+          <header class="panel-heading"><i class="fa fa-circle" style="color: {{typeValueMapping['sleep'].color}}"></i> Sleep vs Weight <i class="fa fa-circle" style="color: {{typeValueMapping['weight'].color}}"></i> ({{dateRange}})
+          </header>
+          <div class="panel-body">
+            <p ng-hide="selectedUsers.length">Select a user from the left</p>
+            <div class="chartJS">
+              <canvas id="sleepweight-chart" height="250" width="800"></canvas>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
   </div>
 </div>
 
