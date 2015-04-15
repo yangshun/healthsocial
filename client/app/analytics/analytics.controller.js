@@ -187,11 +187,10 @@ angular.module('healthsocialDevApp')
             if (chartObj) {
                 chartObj.destroy();
             }
-            // if (chartType === 'radar') {
-                chartData.datasets.forEach(function (dataset) {
-                    dataset.fillColor = 'transparent';
-                });
-            // }
+
+            chartData.datasets.forEach(function (dataset) {
+                dataset.fillColor = 'transparent';
+            });
             
             var thisChart = new Chart(document.getElementById(type + '-chart').getContext('2d'));
             switch (chartType) {
