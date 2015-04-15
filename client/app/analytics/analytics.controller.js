@@ -26,6 +26,18 @@ angular.module('healthsocialDevApp')
         updateCharts();
     }
 
+    $scope.downloadData = function () {
+        var data = $scope.selectedUsers.slice();
+        data.forEach(function (user) {
+            ['sleep', 'activity', 'weight'].forEach(function (type) {
+                user[type + '_log'].forEach(function (dataPoint) {
+                    delete dataPoint._id;
+                });
+            });
+        });
+        var popup = window.open('data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data)));
+    }
+
     $scope.dateRange = moment().subtract(14, 'days').format('DD/MM/YYYY') + ' - ' + moment().subtract(1, 'day').format('DD/MM/YYYY');
     setTimeout(function () {
         $('input[name="daterange"]').daterangepicker({
