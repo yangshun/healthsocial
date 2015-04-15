@@ -14,18 +14,12 @@ angular.module('healthsocialDevApp')
     });
 
     $scope.$watchCollection('selectedUsers', function () {
-        if (!$scope.selectedUsers) {
-            return;
-        }
-
-        var index = 0;
-        $scope.selectedUsers.forEach(function (user) {
-            user.color = CHART_COLORS[index];
-            index++;
-        });
-
         updateCharts();        
     });
+
+    $scope.granularityChange = function () {
+        updateCharts();
+    }
 
     $scope.dateRange = moment().subtract(14, 'days').format('DD/MM/YYYY') + ' - ' + moment().subtract(1, 'day').format('DD/MM/YYYY');
     setTimeout(function () {
@@ -40,6 +34,15 @@ angular.module('healthsocialDevApp')
     }, 0);
 
     function updateCharts () {
+        if (!$scope.selectedUsers) {
+            return;
+        }
+
+        var index = 0;
+        $scope.selectedUsers.forEach(function (user) {
+            user.color = CHART_COLORS[index];
+            index++;
+        });
         var startDate = $scope.dateRange.split(' - ')[0];
         var endDate = $scope.dateRange.split(' - ')[1];
         draw($scope.selectedUsers, startDate, endDate, $scope.granularity);
@@ -94,10 +97,20 @@ angular.module('healthsocialDevApp')
         });
 
         ['sleep', 'activity', 'weight'].forEach(function (type) {
+            var data = selectedUsers[0][type + '_log'].slice(startIndex, endIndex+1);
+            
+            if (granularity === 'week') {
+                data = data.filter(function (dataPoint, index) {
+                    return index % 7 === 0;
+                });
+            }
+
+            var labels = data.map(function (dataPoint) {
+                return dataPoint.date;
+            });
+
             var chartData = {
-                labels: selectedUsers[0][type + '_log'].slice(startIndex, endIndex+1).map(function (dataPoint) {
-                    return dataPoint.date;
-                }),
+                labels: labels,
                 datasets: []
             };
 
@@ -105,12 +118,20 @@ angular.module('healthsocialDevApp')
                 var dataSet = user[type + '_log'].slice(startIndex, endIndex+1).map(function (dataPoint) {
                     return dataPoint[chartMapping[type].unit];
                 });
+
+                var plottingData = dataSet;
+                if (granularity === 'week') {
+                    plottingData = dataSet.filter(function (dataPoint, index) {
+                        return index % 7 === 0;
+                    });
+                }
+
                 chartData.datasets.push({
                     fillColor: user.color,
                     strokeColor: user.color,
                     pointColor: user.color,
                     pointStrokeColor: '#fff',
-                    data: dataSet
+                    data: plottingData
                 });
 
                 function median (values) {

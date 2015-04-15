@@ -56,19 +56,19 @@
               <div class="col-md-8">
                 <div class="radio-inline">
                   <label>
-                    <input type="radio" name="inlineRadioOptions" ng-model="granularity" value="day"> Day
+                    <input type="radio" ng-change="granularityChange()" ng-model="granularity" value="day"> Day
                   </label>
                 </div>
                 <div class="radio-inline">
                   <label>
-                    <input type="radio" name="inlineRadioOptions" ng-model="granularity" value="week"> Week
+                    <input type="radio" ng-change="granularityChange()" ng-model="granularity" value="week"> Week
                   </label>
                 </div>
-                <div class="radio-inline">
+                <!-- <div class="radio-inline">
                   <label>
                     <input type="radio" name="inlineRadioOptions" ng-model="granularity" value="month"> Month
                   </label>
-                </div>
+                </div> -->
               </div>
             </div>
 
