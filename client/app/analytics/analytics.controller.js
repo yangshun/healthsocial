@@ -207,49 +207,5 @@ angular.module('healthsocialDevApp')
             }
             chartMapping[type].chart = chartObj;
         });
-
-        var pieData = [
-            {
-                value: 30,
-                color:"#E67A77"
-            },
-            {
-                value : 50,
-                color : "#D9DD81"
-            },
-            {
-                value : 100,
-                color : "#79D1CF"
-            }
-
-        ];
-
-        var myPie = new Chart(document.getElementById("pie-chart-js").getContext("2d")).Pie(pieData);
-
-        var donutData = [
-            {
-                value: 30,
-                color:"#E67A77"
-            },
-            {
-                value : 50,
-                color : "#D9DD81"
-            },
-            {
-                value : 100,
-                color : "#79D1CF"
-            },
-            {
-                value : 40,
-                color : "#95D7BB"
-            },
-            {
-                value : 120,
-                color : "#4D5360"
-            }
-
-        ]
-        var myDonut = new Chart(document.getElementById("donut-chart-js").getContext("2d")).Doughnut(donutData);
     }
-
 });
